@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Cart Checkout</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div id="BackLink">
+        <a th:href="@{/cart}">Return to Shopping Cart</a>
+      </div>
+      <div id="Catalog">
+        <table>
+          <tr>
+            <td>
+              <h2>Checkout Summary</h2>
+              <table>
+                <tr>
+                  <td><b>Item ID</b></td>  <td><b>Product ID</b></td>  <td><b>Description</b></td> <td><b>In Stock?</b></td>
+                  <td><b>Quantity</b></td>  <td><b>List Price</b></td> <td><b>Total Cost</b></td>
+                </tr>
+                <tr th:each="cartItem : ${cart.cartItemList}">
+                  <td><a th:href="@{|/catalog/item/${cartItem.item.itemId}|}" th:text="${cartItem.item.itemId}"></a></td>
+                  <td th:text="${cartItem.item.productId}"></td>
+                  <td th:text="${cartItem.item.productName}"></td>
+                  <td th:text="${cartItem.inStock}"></td>
+                  <td th:text="${cartItem.quantity}"></td>
+                  <td th:text="${#numbers.formatDecimal(cartItem.item.listPrice.value,1,2)}"></td>
+                  <td th:text="${#numbers.formatDecimal(cartItem.total.value,1,2)}"></td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    Sub Total: <span th:text="${#numbers.formatDecimal(cart.subTotal.value,1,2)}"></span>
+                  </td>
+                </tr>
+              </table>
+              <form method="post" th:action="@{/cart/checkout}">
+                <input type="submit" name="continue" value="Continue" />
+              </form>
+            </td>
+            <td>
+              &nbsp;
+            </td>
+          </tr>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

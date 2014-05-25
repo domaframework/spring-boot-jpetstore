@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Product</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div id="BackLink">
+        <a th:href="@{/}">Return to Menu</a>
+      </div>
+      <div id="Catalog">
+        <h2 th:text="${product.name}">Product</h2>
+        <table>
+          <tr><th>Item ID</th>  <th>Product ID</th>  <th>Description</th>  <th>List
+            Price</th>  <th>&nbsp;</th></tr>
+          <tr th:each="item : ${itemList}">
+            <td>
+              <a th:href="@{|/item/${item.itemId}|}" th:text="${item.itemId}">item id</a></td>
+            <td th:text="${item.productId}">product id</td>
+            <td th:text="${item.productName}"></td>
+            <td th:text="${#numbers.formatDecimal(item.listPrice.value,1,2)}"></td>
+            <td><a class="addLink" styleClass="Button" th:href="@{|/cart/item/${item.itemId}|}">Add to Cart</a></td>
+          </tr>
+        </table>
+        <form id="addForm" th:method="post" th:action="@{/}"></form>
+      </div>
+      <script>
+        $(function () {
+          $('.addLink').click(function (e) {
+            e.preventDefault();
+            var link = this;
+            var $form = $('#addForm');
+            $form.prop('action', this.href);
+            $form.submit();
+          });
+        });
+      </script>
+    </section>
+  </body>
+</html>

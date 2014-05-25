@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.0.M1")
+        classpath("org.springframework:springloaded:1.2.1.BUILD-SNAPSHOT")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+version = '2.0-beta-5-SNAPSHOT'
+
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources
+
+jar {
+    baseName = 'spring-boot-example'
+    version =  version
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.hibernate:hibernate-validator")
+    compile("org.seasar.doma:doma:${version}")
+    compile("com.h2database:h2")
+    compile("org.webjars:jquery:2.1.1")
+    testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
+apply from:'eclipse.gradle'

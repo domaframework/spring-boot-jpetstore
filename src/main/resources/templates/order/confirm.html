@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+
+      <div id="BackLink">
+        <a th:href="@{/}">Return to Main Menu</a>
+      </div>
+      
+      <div id="Catalog">
+      
+        Please confirm the information below and then press continue...
+      
+        <table th:object="${order}">
+          <tr><th align="center" colspan="2">
+            <font size="4"><b>Order</b></font>
+            <br/><font size="3"><b><!-- <span th:text="*{orderDate} ? *{#dates.format(orderDate, 'yyyy/MM/dd hh:mm:ss')}"></span> --></b></font>
+          </th></tr>
+      
+          <tr><th colspan="2">
+            Billing Address
+          </th></tr>
+          <tr><td>
+            First name:</td><td th:text="*{billToFirstName}">
+          </td></tr>
+          <tr><td>
+            Last name:</td><td th:text="*{billToLastName}">
+          </td></tr>
+          <tr><td>
+            Address 1:</td><td th:text="*{billAddress1}">
+          </td></tr>
+          <tr><td>
+            Address 2:</td><td th:text="*{billAddress2}">
+          </td></tr>
+          <tr><td>
+            City: </td><td th:text="*{billCity}">
+          </td></tr>
+          <tr><td>
+            State:</td><td th:text="*{billState}">
+          </td></tr>
+          <tr><td>
+            Zip:</td><td th:text="*{billZip}">
+          </td></tr>
+          <tr><td>
+            Country: </td><td th:text="*{billCountry}">
+          </td></tr>
+        </table>
+      
+        <form method="post" th:action="@{/order}">
+          <input type="submit" name="confirm" value="Confirm" />
+        </form>
+      
+      </div>
+
+    </section>
+  </body>
+</html>

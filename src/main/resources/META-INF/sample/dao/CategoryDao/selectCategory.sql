@@ -1,0 +1,8 @@
+SELECT
+  CATID,
+  NAME,
+  DESCN
+FROM 
+  CATEGORY
+WHERE
+  CATID = /*categoryId*/'DOGS'

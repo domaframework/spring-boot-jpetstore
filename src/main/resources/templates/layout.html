@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>JPetStore Demo</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/jpetstore.css" th:href="@{/css/jpetstore.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+  </head>
+  <body>
+    <div id="Header">
+      <div id="Logo">
+        <div id="LogoContent">
+          <a href="/" th:href="@{/}"><img th:src="@{/images/logo-topbar.gif}"/></a>
+        </div>
+      </div>
+      <div id="Menu">
+        <div id="MenuContent">
+          <a th:href="@{/cart}"><img align="middle" name="img_cart" th:src="@{/images/cart.gif}"/></a>
+          <img align="middle" th:src="@{/images/separator.gif}"/>
+          <!--/*/ <th:block th:unless="${#httpServletRequest.userPrincipal}"> /*/-->
+          <a th:href="@{/signin}">Sign In</a>
+          <!--/*/ </th:block> /*/-->
+          <!--/*/ <th:block th:if="${#httpServletRequest.userPrincipal}"> /*/-->
+          <a id="signout" href="#">Sign Out</a>
+          <img align="middle" th:src="@{/images/separator.gif}"/>
+          <a th:href="@{/account/edit}">My Account</a>
+          <!--/*/ </th:block> /*/-->
+        </div>
+        <form id="signoutForm" method="post" th:action="@{/signout}"></form>
+      </div>
+      <div id="Search">
+        <div id="SearchContent">
+          <form id="searchForm" method="get" th:action="@{/search}">
+            <input name="keyword" size="14"/>&nbsp;<input type="button" id="search"
+            value="Search"/>
+          </form>
+        </div>
+      </div>
+      <div id="QuickLinks">
+        <a th:href="@{/category/FISH}">
+          <img th:src="@{/images/sm_fish.gif}"/></a>
+        <img th:src="@{/images/separator.gif}"/>
+        <a th:href="@{/category/DOGS}">
+          <img th:src="@{/images/sm_dogs.gif}"/></a>
+        <img th:src="@{/images/separator.gif}"/>
+        <a th:href="@{/category/REPTILES}">
+          <img th:src="@{/images/sm_reptiles.gif}"/></a>
+        <img th:src="@{/images/separator.gif}"/>
+        <a th:href="@{/category/CATS}">
+          <img th:src="@{/images/sm_cats.gif}"/></a>
+        <img th:src="@{/images/separator.gif}"/>
+         <a th:href="@{/category/BIRDS}">
+          <img th:src="@{/images/sm_birds.gif}"/></a>
+      </div>
+    </div>
+    <section layout:fragment="content">
+      <p>Page content goes here</p>
+    </section>
+    <div id="Footer">
+      <div id="Banner"></div>
+      <p layout:fragment="custom-footer"></p>
+    </div>
+    <script>
+      $(function () {
+        $('#search').click(function () {
+          $('#searchForm').submit();
+        });
+        $('#signout').click(function () {
+          $('#signoutForm').submit();
+        });
+      });
+    </script>
+  </body>
+</html>

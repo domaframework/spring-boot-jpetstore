@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Edit Account</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div id="Catalog">
+        <form method="post" th:action="@{/account/edit}" th:object="${accountForm}">
+          <div th:if="${#fields.hasErrors('*')}"
+              class="alert alert-error">
+            <p th:each="error : ${#fields.errors('*')}"
+                th:text="${error}">
+              Validation error
+            </p>
+          </div>
+          <h3>User Information</h3>
+          <table>
+            <tr>
+              <td>User ID:</td><td th:text="${username}"></td>
+            </tr>
+          </table>
+          <section th:replace="account/fields :: info"></section>
+          <input type="submit" name="editAccount" value="Save Account Information"/>
+        </form>
+        <a th:href="@{/history}">My Orders</a>
+      </div>
+    </section>
+  </body>
+</html>

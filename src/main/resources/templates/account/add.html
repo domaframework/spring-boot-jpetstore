@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Add Account</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div id="Catalog">
+        <form method="post" th:action="@{/account/add}" th:object="${accountForm}">
+          <div th:if="${#fields.hasErrors('*')}"
+              class="alert alert-error">
+            <p th:each="error : ${#fields.errors('*')}"
+                th:text="${error}">
+              Validation error
+            </p>
+          </div>
+          <h3>User Information</h3>
+          <table>
+            <tr>
+              <td>User ID:</td><td><input type="text" th:field="*{username}" th:errorclass="fieldError"/></td>
+            </tr><tr>
+            <td>New password:</td><td><input type="password" th:field="*{password}"/></td>
+            </tr><tr>
+              <td>Repeat password:</td><td><input type="password" th:field="*{repeatedPassword}"/></td>
+            </tr>
+          </table>
+          <section th:replace="account/fields :: info"></section>
+          <input type="submit" name="newAccount" value="Create Account"/>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

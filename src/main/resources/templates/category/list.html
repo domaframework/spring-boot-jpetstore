@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Category</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div id="BackLink">
+        <a th:href="@{/}">Return to Main Menu</a>
+      </div>
+      <div id="Catalog">
+        <h2 th:text="${category.name}">Category</h2>
+        <table>
+          <tr><th>Product ID</th>  <th>Name</th></tr>
+          <tr th:each="product : ${productList}">
+            <td><a th:href="@{|/product/${product.productId}|}"><span th:text="${product.productId}"></span></a></td>
+            <td th:text="${product.name}"></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

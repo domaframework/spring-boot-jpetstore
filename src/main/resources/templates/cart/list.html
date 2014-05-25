@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div id="BackLink">
+        <a th:href="@{/}">Return to Main Menu</a>
+      </div>
+      <div id="Catalog">
+        <div id="Cart">
+          <h2>Shopping Cart</h2>
+          <form th:method="post" th:action="@{/cart}">
+            <table>
+              <tr>
+                <th><b>Item ID</b></th>  <th><b>Product ID</b></th>  <th><b>Description</b></th> <th><b>In Stock?</b></th>
+                <th><b>Quantity</b></th>  <th><b>List Price</b></th> <th><b>Total Cost</b></th>  <th>&nbsp;</th>
+              </tr>
+              <tr th:if="${cart.numberOfItems} == 0"><td colspan="8"><b>Your cart is empty.</b></td></tr>
+              <tr th:each="cartItem : ${cart.cartItemList}">
+                <td>
+                  <a th:href="@{|/catalog/item/${cartItem.item.itemId}|}" th:text="${cartItem.item.itemId}"></a>
+                </td>
+                <td th:text="${cartItem.item.productId}"></td>
+                <td th:text="${cartItem.item.productName}">
+                </td>
+                <td th:text="${cartItem.inStock}"></td>
+                <td>
+                  <input type="text" size="3" th:name="|itemIds[${cartItem.item.itemId}]|"
+                         th:value="${cartItem.quantity}"/>
+                </td>
+                <td th:text="${#numbers.formatDecimal(cartItem.item.listPrice.value,1,2)}"></td>
+                <td th:text="${#numbers.formatDecimal(cartItem.total.value,1,2)}"></td>
+                <td>
+                  <a class="removeLink" th:href="@{|/cart/${cartItem.item.itemId}|}" styleClass="Button">Remove</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="7">
+                  Sub Total: <span th:text="${#numbers.formatDecimal(cart.subTotal.value,1,2)}"></span>
+                  <input type="submit" name="updateCartQuantities" value="Update Cart"/>
+                </td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </form>
+          <form id="removeForm" th:method="delete" th:action="@{/}"></form>
+          <a styleClass="Button" th:if="${cart.numberOfItems} != 0" th:href="@{/cart/checkout}">Proceed to Checkout</a>
+        </div>
+        <div id="Separator">&nbsp;</div>
+      </div>
+      <script>
+        $(function () {
+          $('.removeLink').click(function (e) {
+            e.preventDefault();
+            var $form = $('#removeForm');
+            $form.prop('action', this.href);
+            $form.submit();
+          });
+        });
+      </script>
+    </section>
+  </body>
+</html>

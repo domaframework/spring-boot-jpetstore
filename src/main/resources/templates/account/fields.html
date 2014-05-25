@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+  <head>
+    <title>Account Fields</title>
+  </head>
+  <body>
+    <section th:fragment="info">
+      <h3>Account Information</h3>
+      
+      <table>
+        <tr>
+          <td>First name:</td><td><input type="text" th:field="*{firstName}"/></td>
+        </tr><tr>
+          <td>Last name:</td><td><input type="text" th:field="*{lastName}"/></td>
+        </tr><tr>
+          <td>Email:</td><td><input type="text" size="40" th:field="*{email}"/></td>
+        </tr><tr>
+          <td>Phone:</td><td><input type="text" th:field="*{phone}"/></td>
+        </tr><tr>
+          <td>Address 1:</td><td><input type="text" size="40" th:field="*{address1}"/></td>
+        </tr><tr>
+          <td>Address 2:</td><td><input type="text" size="40" th:field="*{address2}"/></td>
+        </tr><tr>
+          <td>City:</td><td><input type="text" th:field="*{city}"/></td>
+        </tr><tr>
+          <td>State:</td><td><input type="text" size="4" th:field="*{state}"/></td>
+        </tr><tr>
+          <td>Zip:</td><td><input type="text" size="10" th:field="*{zip}"/></td>
+        </tr><tr>
+          <td>Country:</td><td><input type="text" size="15" th:field="*{country}"/></td>
+        </tr>
+      </table>
+      <h3>Profile Information</h3>
+      <table>
+        <tr>
+          <td>Language Preference:</td><td>
+          <select th:field="*{languagePreference}">
+            <option th:each="lang : ${languageList}" th:value="${lang}" th:text="${lang}"></option>
+          </select></td>
+        </tr><tr>
+          <td>Favourite Category:</td><td>
+          <select th:field="*{favouriteCategoryId}">
+            <option th:each ="category : ${categoryList}" th:value="${category}" th:text="${category}"></option>
+          </select></td>
+        </tr><tr>
+          <td>Enable MyList</td><td><input type="checkbox" th:feild="*{listOption}"/></td>
+        </tr><tr>
+          <td>Enable MyBanner</td><td><input type="checkbox" th:field="*{bannerOption}"/></td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</html>
