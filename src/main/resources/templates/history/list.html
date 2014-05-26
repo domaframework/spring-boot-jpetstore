@@ -8,15 +8,17 @@
   </head>
   <body>
     <section layout:fragment="content">
-      <h2>My Orders</h2>
-      <table>
-        <tr><th>Order ID</th>  <th>Date</th>  <th>Total Price</th></tr>
-        <tr th:each="order : ${orderList}">
-          <td><a th:href="@{|history/${order.orderId}|}" th:text="${order.orderId}"></a></td>
-          <td th:text="${{order.orderDate}}"></td>
-          <td th:text="${{order.totalPrice}}"></td>
-        </tr>
-      </table>
+      <div id="Catalog">
+        <h2>My Orders</h2>
+        <table>
+          <tr><th>Order ID</th>  <th>Date</th>  <th>Total Price</th></tr>
+          <tr th:each="order : ${orderList}">
+            <td><a th:href="@{|history/${order.orderId}|}" th:text="${order.orderId}"></a></td>
+            <td th:text="${{order.orderDate}}"></td>
+            <td th:text="${{order.totalPrice}}"></td>
+          </tr>
+        </table>
+      </div>
     </section>
   </body>
 </html>

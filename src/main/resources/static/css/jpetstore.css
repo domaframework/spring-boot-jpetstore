@@ -160,7 +160,7 @@ body>#Menu {
 }
 
 #Search {
-  width: 33%;
+  width: 34%;
   height: 9ex;
   margin: 0ex 0ex 0ex 0ex;
   padding: 0ex 0ex 0ex 0ex;
@@ -192,7 +192,7 @@ body>#Search {
 #QuickLinks {
   text-align: center;
   background-color: #FFF;
-  width: 99%;
+  width: 100%;
 }
 
 #PoweredBy {
@@ -217,7 +217,7 @@ body>#PoweredBy {
 }
 
 #Banner {
-  width: 99%;
+  width: 100%;
   height: 9ex;
   margin: 0ex 0ex 0ex 0ex;
   padding: 0ex 0ex 0ex 0ex;
@@ -240,7 +240,7 @@ body>#Banner {
 #Content {
   margin: 0;
   padding: 0ex 0ex 0ex 0ex;
-  width: 99%;
+  width: 100%;
   color: #333;
   background-color: #FFF;
   border-width: 0;
@@ -250,6 +250,13 @@ body>#Banner {
   clear:both;
   margin: 0;
   height:0;
+}
+
+#Welcome {
+  margin: 0;
+  padding: 1ex;
+  color: #333;
+  background-color: #FFF;
 }
 
 #Main {
@@ -279,6 +286,7 @@ body>#Banner {
   padding: 1ex;
   background:inherit;
   text-align:center;
+  background-color: #FFF;
 }
 
 #Catalog input[type="submit"]{
