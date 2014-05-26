@@ -1,6 +1,6 @@
 CREATE SEQUENCE orders_seq START WITH 1000 INCREMENT BY 10;
 create table supplier (suppid int not null,name varchar(80) null,status varchar(2) not null,addr1 varchar(80) null,addr2 varchar(80) null,city varchar(80) null,state varchar(80) null,zip varchar(5) null,phone varchar(80) null,constraint pk_supplier primary key (suppid));
-create table signon (username varchar(25) not null,password varchar(25)  not null,constraint pk_signon primary key (username));
+create table signon (username varchar(25) not null,password varchar(100)  not null,constraint pk_signon primary key (username));
 create table account (userid varchar(80) not null,email varchar(80) not null,firstname varchar(80) not null,lastname varchar(80) not null,status varchar(2)  null,addr1 varchar(80) not null,addr2 varchar(40) null,city varchar(80) not  null,state varchar(80) not null,zip varchar(20) not null,country varchar(20) not null,phone varchar(80) not null,constraint pk_account primary key (userid));
 create table profile (userid varchar(80) not null,langpref varchar(80) not null,favcategory varchar(30),mylistopt int,banneropt int,constraint pk_profile primary key (userid));
 create table bannerdata (favcategory varchar(80) not null,bannername varchar(255)  null,constraint pk_bannerdata primary key (favcategory));
@@ -18,8 +18,8 @@ CREATE TABLE sequence(name   varchar(30)  not null,nextid int  not null,constrai
 
 INSERT INTO sequence VALUES('ordernum', 1000);
 
-INSERT INTO signon VALUES('doma','doma');
-INSERT INTO signon VALUES('ACID','ACID');
+INSERT INTO signon VALUES('doma','$2a$10$xjXoQgEljOr6rpYL1.PhSe4xp0gMRTrM3Ue0Rix8NTp5eDqAJ5Sp6');
+INSERT INTO signon VALUES('ACID','$2a$10$Me1d4vJb1bMZiOfdg.oTU.64nGQUSB9xvJDwnaUJ1z6m3hRG3pq1S');
 
 INSERT INTO account VALUES('doma','yourname@yourdomain.com','ABC', 'XYX', 'OK', '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto', 'CA', '94303', 'USA',  '555-555-5555');
 INSERT INTO account VALUES('ACID','acid@yourdomain.com','ABC', 'XYX', 'OK', '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto', 'CA', '94303', 'USA',  '555-555-5555');

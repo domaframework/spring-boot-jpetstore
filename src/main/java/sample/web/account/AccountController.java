@@ -18,6 +18,7 @@ package sample.web.account;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,9 +39,13 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountService accountService,
+            PasswordEncoder passwordEncoder) {
         this.accountService = accountService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -56,6 +61,9 @@ public class AccountController {
         }
         Account account = new Account();
         BeanUtils.copyProperties(accountForm, account);
+        String rawPassword = accountForm.getPassword();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        account.setPassword(encodedPassword);
         accountService.insertAccount(account);
         return "redirect:/signin";
     }
