@@ -23,7 +23,7 @@
               <tr th:if="${cart.numberOfItems} == 0"><td colspan="8"><b>Your cart is empty.</b></td></tr>
               <tr th:each="cartItem : ${cart.cartItemList}">
                 <td>
-                  <a th:href="@{|/catalog/item/${cartItem.item.itemId}|}" th:text="${cartItem.item.itemId}"></a>
+                  <a th:href="@{|/item/${cartItem.item.itemId}|}" th:text="${cartItem.item.itemId}"></a>
                 </td>
                 <td th:text="${cartItem.item.productId}"></td>
                 <td th:text="${cartItem.item.productName}">
@@ -36,7 +36,7 @@
                 <td th:text="${{cartItem.item.listPrice}}"></td>
                 <td th:text="${{cartItem.total}}"></td>
                 <td>
-                  <a class="removeLink" th:href="@{|/cart/${cartItem.item.itemId}|}" styleClass="Button">Remove</a>
+                  <a class="removeLink" th:href="@{|/cart/item/${cartItem.item.itemId}|}" styleClass="Button">Remove</a>
                 </td>
               </tr>
               <tr>
