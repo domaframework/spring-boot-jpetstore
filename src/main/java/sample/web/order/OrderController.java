@@ -48,8 +48,11 @@ public class OrderController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String confirm(Model model, @AuthenticationPrincipal User user) {
-        validateCart();
+    public String confirm(Model model, @AuthenticationPrincipal User user,
+            RedirectAttributes redirectAttributes) {
+        if (cart.isEmpty()) {
+            return fillMessageAndredirectToIndex(redirectAttributes);
+        }
         Order order = orderService.createNewOrder(user.getUsername(), cart);
         List<OrderLineItem> lineItems = orderService.createNewLineItems(cart);
         model.addAttribute("order", order);
@@ -60,7 +63,9 @@ public class OrderController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String confirm(@AuthenticationPrincipal User user,
             RedirectAttributes redirectAttributes) {
-        validateCart();
+        if (cart.isEmpty()) {
+            return fillMessageAndredirectToIndex(redirectAttributes);
+        }
         Order order = orderService.createNewOrder(user.getUsername(), cart);
         List<OrderLineItem> lineItems = orderService.createNewLineItems(cart);
         orderService.insertOrder(order, lineItems);
@@ -69,10 +74,9 @@ public class OrderController {
         return "redirect:/";
     }
 
-    protected void validateCart() {
-        if (cart.isEmpty()) {
-            throw new RuntimeException("cart is empty");
-        }
+    protected String fillMessageAndredirectToIndex(
+            RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "Your Cart is Empty.");
+        return "redirect:/";
     }
-
 }
