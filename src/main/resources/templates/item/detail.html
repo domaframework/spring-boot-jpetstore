@@ -29,7 +29,7 @@
             <td th:if="${item.quantity le 0}">Back ordered.</td>
             <td th:if="${item.quantity gt 0}" th:inline="text">[[${item.quantity}]] in stock.</td>
           </tr>
-          <tr><td th:text="${#numbers.formatDecimal(item.listPrice.value,1,2)}">
+          <tr><td th:text="${{item.listPrice}}">
           </td></tr>
           <tr><td>
             <a id="addLink" styleClass="Button" th:href="@{|/cart/item/${item.itemId}|}">Add to Cart</a>

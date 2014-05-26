@@ -13,8 +13,8 @@
         <tr><th>Order ID</th>  <th>Date</th>  <th>Total Price</th></tr>
         <tr th:each="order : ${orderList}">
           <td><a th:href="@{|history/${order.orderId}|}" th:text="${order.orderId}"></a></td>
-          <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd hh:mm:ss')}"></td>
-          <td th:text="${#numbers.formatDecimal(order.totalPrice.value,1,2)}"></td>
+          <td th:text="${{order.orderDate}}"></td>
+          <td th:text="${{order.totalPrice}}"></td>
         </tr>
       </table>
     </section>

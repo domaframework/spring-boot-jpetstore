@@ -33,15 +33,15 @@
                   <input type="text" size="3" th:name="|itemIds[${cartItem.item.itemId}]|"
                          th:value="${cartItem.quantity}"/>
                 </td>
-                <td th:text="${#numbers.formatDecimal(cartItem.item.listPrice.value,1,2)}"></td>
-                <td th:text="${#numbers.formatDecimal(cartItem.total.value,1,2)}"></td>
+                <td th:text="${{cartItem.item.listPrice}}"></td>
+                <td th:text="${{cartItem.total}}"></td>
                 <td>
                   <a class="removeLink" th:href="@{|/cart/${cartItem.item.itemId}|}" styleClass="Button">Remove</a>
                 </td>
               </tr>
               <tr>
                 <td colspan="7">
-                  Sub Total: <span th:text="${#numbers.formatDecimal(cart.subTotal.value,1,2)}"></span>
+                  Sub Total: <span th:text="${{cart.subTotal}}"></span>
                   <input type="submit" name="updateCartQuantities" value="Update Cart"/>
                 </td>
                 <td>&nbsp;</td>

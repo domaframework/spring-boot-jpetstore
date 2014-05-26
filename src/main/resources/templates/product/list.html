@@ -21,7 +21,7 @@
               <a th:href="@{|/item/${item.itemId}|}" th:text="${item.itemId}">item id</a></td>
             <td th:text="${item.productId}">product id</td>
             <td th:text="${item.productName}"></td>
-            <td th:text="${#numbers.formatDecimal(item.listPrice.value,1,2)}"></td>
+            <td th:text="${{item.listPrice}}"></td>
             <td><a class="addLink" styleClass="Button" th:href="@{|/cart/item/${item.itemId}|}">Add to Cart</a></td>
           </tr>
         </table>

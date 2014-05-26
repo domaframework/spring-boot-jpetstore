@@ -12,7 +12,7 @@
         <table>
           <tr><th align="center" colspan="2">
             Order #<span th:text="${order.orderId}"></span>
-            <span th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd hh:mm:ss')}"></span>
+            <span th:text="${{order.orderDate}}"></span>
           </th></tr>
           <tr><th colspan="2">
             Payment Details
@@ -72,11 +72,11 @@
                 <td><a th:href="@{|/item/${item.itemId}|}" th:text="${item.itemId}"></a></td>
                 <td th:text="${item.productName}"></td>
                 <td th:text="${item.quantity}"></td>
-                <td th:text="${#numbers.formatDecimal(item.unitPrice.value,1,2)}"></td>
-                <td th:text="${#numbers.formatDecimal(item.total.value,1,2)}"></td>
+                <td th:text="${{item.unitPrice}}"></td>
+                <td th:text="${{item.total}}"></td>
               </tr>
               <tr>
-                <th colspan="5">Total: <span th:text="${#numbers.formatDecimal(order.totalPrice.value,1,2)}"></span>
+                <th colspan="5">Total: <span th:text="${{order.totalPrice}}"></span>
                 </th>
               </tr>
             </table>

@@ -16,7 +16,7 @@
 package sample.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
@@ -40,7 +40,7 @@ public class Order implements Serializable {
     @Column(name = "USERID")
     private String username;
 
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @Column(name = "SHIPADDR1")
     private String shipAddress1;
@@ -128,11 +128,11 @@ public class Order implements Serializable {
         this.username = username;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 

@@ -27,12 +27,12 @@
                   <td th:text="${cartItem.item.productName}"></td>
                   <td th:text="${cartItem.inStock}"></td>
                   <td th:text="${cartItem.quantity}"></td>
-                  <td th:text="${#numbers.formatDecimal(cartItem.item.listPrice.value,1,2)}"></td>
-                  <td th:text="${#numbers.formatDecimal(cartItem.total.value,1,2)}"></td>
+                  <td th:text="${{cartItem.item.listPrice}}"></td>
+                  <td th:text="${{cartItem.total}}"></td>
                 </tr>
                 <tr>
                   <td colspan="7">
-                    Sub Total: <span th:text="${#numbers.formatDecimal(cart.subTotal.value,1,2)}"></span>
+                    Sub Total: <span th:text="${{cart.subTotal}}"></span>
                   </td>
                 </tr>
               </table>

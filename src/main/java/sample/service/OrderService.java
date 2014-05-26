@@ -15,7 +15,7 @@
  */
 package sample.service;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class OrderService {
 
         Order order = new Order();
         order.setUsername(account.getUsername());
-        order.setOrderDate(new Date(System.currentTimeMillis()));
+        order.setOrderDate(LocalDateTime.now());
         order.setShipToFirstName(account.getFirstName());
         order.setShipToLastName(account.getLastName());
         order.setShipAddress1(account.getAddress1());

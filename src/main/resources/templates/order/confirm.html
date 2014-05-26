@@ -20,7 +20,7 @@
         <table th:object="${order}">
           <tr><th align="center" colspan="2">
             <font size="4"><b>Order</b></font>
-            <br/><font size="3"><b><!-- <span th:text="*{orderDate} ? *{#dates.format(orderDate, 'yyyy/MM/dd hh:mm:ss')}"></span> --></b></font>
+            <br/><font size="3"><b><span th:text="*{{orderDate}}"></span></b></font>
           </th></tr>
       
           <tr><th colspan="2">
