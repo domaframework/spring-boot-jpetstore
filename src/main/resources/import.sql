@@ -14,6 +14,7 @@ create index productName on product (name);
 create table item (itemid varchar(10) not null,productid varchar(10) not null,listprice decimal(10,2) null,unitcost decimal(10,2) null,supplier int null,status varchar(2) null,attr1 varchar(80) null,attr2 varchar(80) null,attr3 varchar(80) null,attr4 varchar(80) null,attr5 varchar(80) null,constraint pk_item primary key (itemid),constraint fk_item_1 foreign key (productid)references product (productid),constraint fk_item_2 foreign key (supplier)references supplier (suppid));
 create index itemProd on item (productid);
 create table inventory (itemid varchar(10) not null,qty int not null,constraint pk_inventory primary key (itemid));
+create table persistent_logins (username varchar(64) not null, series varchar(64) primary key, token varchar(64) not null, last_used timestamp not null);
 CREATE TABLE sequence(name   varchar(30)  not null,nextid int  not null,constraint pk_sequence primary key (name));
 
 INSERT INTO sequence VALUES('ordernum', 1000);

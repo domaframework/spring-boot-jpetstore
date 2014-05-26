@@ -3,4 +3,5 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.seasar.doma" level="INFO"/>
     <logger name="sample" level="INFO"/>
+    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG"/>
 </configuration>

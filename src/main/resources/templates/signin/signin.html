@@ -10,13 +10,31 @@
     <section layout:fragment="content">
       <div id="Catalog">
         <form method="post" th:action="@{/signin}">
+          <div th:if="${param.error}">
+            Invalid username and password.
+          </div>
+          <div th:if="${param.logout}">
+            You have been logged out.
+          </div>
           <p>Please enter your username and password.</p>
-          <p>
-            Username:<input type="text" name="username" value="doma"/>
-            <br/>
-            Password:<input type="password" name="password" value="doma"/>
-          </p>
-          <input type="submit" name="signin" value="Singin"/>
+          <table>
+            <tr>
+              <td>Username:</td>
+              <td><input type="text" name="username" value="doma" /></td>
+            </tr>
+            <tr>
+              <td>Password:</td>
+              <td><input type="password" name="password" value="doma" /></td>
+            </tr>
+            <tr>
+              <td>Remember Me:</td>
+              <td><input type="checkbox" name="remember-me" /></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><input type="submit" name="signin" value="Singin" /></td>
+            </tr>
+          </table>
         </form>
       </div>
       Need a username and password?
