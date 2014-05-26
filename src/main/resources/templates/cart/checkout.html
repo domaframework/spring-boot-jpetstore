@@ -22,7 +22,7 @@
                   <td><b>Quantity</b></td>  <td><b>List Price</b></td> <td><b>Total Cost</b></td>
                 </tr>
                 <tr th:each="cartItem : ${cart.cartItemList}">
-                  <td><a th:href="@{|/catalog/item/${cartItem.item.itemId}|}" th:text="${cartItem.item.itemId}"></a></td>
+                  <td><a th:href="@{|/item/${cartItem.item.itemId}|}" th:text="${cartItem.item.itemId}"></a></td>
                   <td th:text="${cartItem.item.productId}"></td>
                   <td th:text="${cartItem.item.productName}"></td>
                   <td th:text="${cartItem.inStock}"></td>
