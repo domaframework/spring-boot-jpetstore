@@ -53,11 +53,6 @@ public class AccountService implements UserDetailsService {
         return accountDao.selectAccountByUsername(username);
     }
 
-    public Account getAccount(String username, String password) {
-        return accountDao
-                .selectAccountByUsernameAndPassword(username, password);
-    }
-
     public void insertAccount(Account account) {
         accountDao.insertAccount(account);
 

@@ -30,9 +30,6 @@ public interface AccountDao {
     @Select
     Account selectAccountByUsername(String username);
 
-    @Select
-    Account selectAccountByUsernameAndPassword(String username, String password);
-
     @Insert(sqlFile = true)
     int insertAccount(Account account);
 
