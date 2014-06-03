@@ -18,6 +18,7 @@ package sample.dao;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
+import org.seasar.doma.jdbc.SqlLogType;
 
 import sample.ConfigAutowireable;
 import sample.entity.Signon;
@@ -26,10 +27,10 @@ import sample.entity.Signon;
 @ConfigAutowireable
 public interface SignonDao {
 
-    @Insert
+    @Insert(sqlLog = SqlLogType.RAW)
     int insertSignon(Signon signon);
 
-    @Update
+    @Update(sqlLog = SqlLogType.RAW)
     int updateSignon(Signon signon);
 
 }
