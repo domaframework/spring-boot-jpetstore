@@ -18,26 +18,21 @@ package sample.web.cart;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class CartForm {
 
-    private String itemId;
+    @Valid
+    @NotNull
+    private Map<String, CartItemForm> items = new HashMap<String, CartItemForm>();
 
-    private Map<String, String> itemIds = new HashMap<String, String>();
-
-    public String getItemId() {
-        return itemId;
+    public Map<String, CartItemForm> getItems() {
+        return items;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
-
-    public Map<String, String> getItemIds() {
-        return itemIds;
-    }
-
-    public void setItemIds(Map<String, String> itemIds) {
-        this.itemIds = itemIds;
+    public void setItems(Map<String, CartItemForm> itemIds) {
+        this.items = itemIds;
     }
 
 }

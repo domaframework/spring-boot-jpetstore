@@ -17,13 +17,12 @@ package sample.web.cart;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,29 +49,37 @@ public class CartController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String view(Model model) {
+        CartForm cartForm = new CartForm();
+        for (CartItem item : cart.getCartItemList()) {
+            CartItemForm cartItemForm = new CartItemForm();
+            cartItemForm.setQuantity(item.getQuantity());
+            cartForm.getItems().put(item.getItem().getItemId(), cartItemForm);
+        }
         model.addAttribute("cart", cart);
+        model.addAttribute("cartForm", cartForm);
         return "cart/list";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String updateAll(@Valid CartForm cartForm, BindingResult result) {
-        for (Map.Entry<String, String> entry : cartForm.getItemIds().entrySet()) {
+    public String updateAll(@Validated CartForm cartForm, BindingResult result,
+            Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("cart", cart);
+            model.addAttribute("cartForm", cartForm);
+            return "cart/list";
+        }
+        for (Map.Entry<String, CartItemForm> entry : cartForm.getItems()
+                .entrySet()) {
             String itemId = entry.getKey();
             CartItem cartItem = cart.getCartItem(itemId);
             if (cartItem == null) {
                 continue;
             }
-            String quantity = entry.getValue();
-            int qty = 0;
-            try {
-                qty = Integer.valueOf(quantity);
-            } catch (NumberFormatException e) {
-                continue;
-            }
-            if (qty < 1) {
+            CartItemForm cartItemForm = entry.getValue();
+            if (cartItemForm.getQuantity() < 1) {
                 cart.removeItemById(itemId);
             } else {
-                cart.setQuantityByItemId(itemId, qty);
+                cart.setQuantityByItemId(itemId, cartItemForm.getQuantity());
             }
         }
         return "redirect:/cart";

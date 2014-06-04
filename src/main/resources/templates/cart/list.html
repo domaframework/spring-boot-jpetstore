@@ -14,7 +14,7 @@
       <div id="Catalog">
         <div id="Cart">
           <h2>Shopping Cart</h2>
-          <form th:method="post" th:action="@{/cart}">
+          <form th:method="post" th:action="@{/cart}" th:object="${cartForm}">
             <table>
               <tr>
                 <th><b>Item ID</b></th>  <th><b>Product ID</b></th>  <th><b>Description</b></th> <th><b>In Stock?</b></th>
@@ -30,8 +30,8 @@
                 </td>
                 <td th:text="${cartItem.inStock}"></td>
                 <td>
-                  <input type="text" size="3" th:name="|itemIds[${cartItem.item.itemId}]|"
-                         th:value="${cartItem.quantity}"/>
+                  <input type="text" size="3" th:field="*{items[__${cartItem.item.itemId}__].quantity}" />
+                  <span th:if="${#fields.hasErrors('items[__${cartItem.item.itemId}__].quantity')}" th:errors="*{items[__${cartItem.item.itemId}__].quantity}">Incorrect date</span>
                 </td>
                 <td th:text="${{cartItem.item.listPrice}}"></td>
                 <td th:text="${{cartItem.total}}"></td>
