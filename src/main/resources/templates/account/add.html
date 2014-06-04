@@ -12,19 +12,30 @@
         <form method="post" th:action="@{/account/add}" th:object="${accountForm}">
           <div th:if="${#fields.hasErrors('*')}"
               class="alert alert-error">
-            <p th:each="error : ${#fields.errors('*')}"
-                th:text="${error}">
-              Validation error
-            </p>
+            Validation error
           </div>
           <h3>User Information</h3>
           <table>
             <tr>
-              <td>User ID:</td><td><input type="text" th:field="*{username}" th:errorclass="fieldError"/></td>
-            </tr><tr>
-            <td>New password:</td><td><input type="password" th:field="*{password}"/></td>
-            </tr><tr>
-              <td>Repeat password:</td><td><input type="password" th:field="*{repeatedPassword}"/></td>
+              <td>User ID:</td>
+              <td>
+                <input type="text" th:field="*{username}" th:errorclass="fieldError"/>
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</span>
+              </td>
+            </tr>
+            <tr>
+              <td>New password:</td>
+              <td>
+                  <input type="password" th:field="*{password}" th:errorclass="fieldError"/>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</span>
+              </td>
+            </tr>
+            <tr>
+                <td>Repeat password:</td>
+                <td>
+                  <input type="password" th:field="*{repeatedPassword}" th:errorclass="fieldError"/>
+                <span th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}">Error</span>
+                </td>
             </tr>
           </table>
           <section th:replace="account/fields :: info"></section>

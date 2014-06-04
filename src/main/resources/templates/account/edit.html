@@ -12,10 +12,7 @@
         <form method="post" th:action="@{/account/edit}" th:object="${accountForm}">
           <div th:if="${#fields.hasErrors('*')}"
               class="alert alert-error">
-            <p th:each="error : ${#fields.errors('*')}"
-                th:text="${error}">
-              Validation error
-            </p>
+            Validation error
           </div>
           <h3>User Information</h3>
           <table>

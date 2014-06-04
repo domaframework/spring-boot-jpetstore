@@ -12,25 +12,45 @@
       
       <table>
         <tr>
-          <td>First name:</td><td><input type="text" th:field="*{firstName}"/></td>
+          <td>First name:</td><td><input type="text" th:field="*{firstName}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</span>
+          </td>
         </tr><tr>
-          <td>Last name:</td><td><input type="text" th:field="*{lastName}"/></td>
+          <td>Last name:</td><td><input type="text" th:field="*{lastName}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</span>
+          </td>
         </tr><tr>
-          <td>Email:</td><td><input type="text" size="40" th:field="*{email}"/></td>
+          <td>Email:</td><td><input type="text" size="40" th:field="*{email}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</span>
+          </td>
         </tr><tr>
-          <td>Phone:</td><td><input type="text" th:field="*{phone}"/></td>
+          <td>Phone:</td><td><input type="text" th:field="*{phone}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Error</span>
+          </td>
         </tr><tr>
-          <td>Address 1:</td><td><input type="text" size="40" th:field="*{address1}"/></td>
+          <td>Address 1:</td><td><input type="text" size="40" th:field="*{address1}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}">Error</span>
+          </td>
         </tr><tr>
-          <td>Address 2:</td><td><input type="text" size="40" th:field="*{address2}"/></td>
+          <td>Address 2:</td><td><input type="text" size="40" th:field="*{address2}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}">Error</span>
+          </td>
         </tr><tr>
-          <td>City:</td><td><input type="text" th:field="*{city}"/></td>
+          <td>City:</td><td><input type="text" th:field="*{city}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Error</span>
+          </td>
         </tr><tr>
-          <td>State:</td><td><input type="text" size="4" th:field="*{state}"/></td>
+          <td>State:</td><td><input type="text" size="4" th:field="*{state}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}">Error</span>
+          </td>
         </tr><tr>
-          <td>Zip:</td><td><input type="text" size="10" th:field="*{zip}"/></td>
+          <td>Zip:</td><td><input type="text" size="10" th:field="*{zip}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">Error</span>
+          </td>
         </tr><tr>
-          <td>Country:</td><td><input type="text" size="15" th:field="*{country}"/></td>
+          <td>Country:</td><td><input type="text" size="15" th:field="*{country}" th:errorclass="fieldError" />
+          <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Error</span>
+          </td>
         </tr>
       </table>
       <h3>Profile Information</h3>

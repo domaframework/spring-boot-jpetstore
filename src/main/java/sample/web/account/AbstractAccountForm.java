@@ -16,43 +16,58 @@
 package sample.web.account;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public abstract class AbstractAccountForm {
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String email;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String firstName;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String lastName;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String address1;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String address2;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String city;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String state;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 20)
     private String zip;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 20)
     private String country;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 20)
     private String phone;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String favouriteCategoryId;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 30)
     private String languagePreference;
 
     @NotNull

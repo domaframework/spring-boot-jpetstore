@@ -1,18 +1,20 @@
 package sample.web.account;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class AddAccountForm extends AbstractAccountForm {
 
-    @NotNull
-    @Size(max = 5)
+    @NotBlank
+    @Size(max = 20)
     private String username;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 8)
     private String password;
 
-    @NotNull
+    @NotBlank
     private String repeatedPassword;
 
     public String getUsername() {
