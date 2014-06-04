@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,11 +44,19 @@ public class AccountController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final PasswordValidator passwordValidator;
+
     @Autowired
     public AccountController(AccountService accountService,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder, PasswordValidator passwordValidator) {
         this.accountService = accountService;
         this.passwordEncoder = passwordEncoder;
+        this.passwordValidator = passwordValidator;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(passwordValidator);
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
