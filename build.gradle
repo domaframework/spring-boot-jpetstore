@@ -37,7 +37,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.hibernate:hibernate-validator")
     compile("org.seasar.doma:doma:${version}")
     compile("com.h2database:h2")
     compile("org.webjars:jquery:2.1.1")
