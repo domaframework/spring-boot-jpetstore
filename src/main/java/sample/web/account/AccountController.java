@@ -27,7 +27,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -54,7 +53,7 @@ public class AccountController {
         this.passwordValidator = passwordValidator;
     }
 
-    @InitBinder
+    @InitBinder("addAccountForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(passwordValidator);
     }
@@ -66,7 +65,7 @@ public class AccountController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(
-            @Validated @ModelAttribute("accountForm") AddAccountForm accountForm,
+            @Validated AddAccountForm accountForm,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return modelAndViewForAdd(model, accountForm);
@@ -81,7 +80,7 @@ public class AccountController {
     }
 
     private String modelAndViewForAdd(Model model, AddAccountForm accountForm) {
-        model.addAttribute("accountForm", accountForm);
+        model.addAttribute(accountForm);
         model.addAttribute("languageList", Constants.LANGUAGE_LIST);
         model.addAttribute("categoryList", Constants.CATEGORY_LIST);
         return "account/add";
@@ -97,7 +96,7 @@ public class AccountController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(
-            @Validated @ModelAttribute("accountForm") EditAccountForm accountForm,
+            @Validated EditAccountForm accountForm,
             BindingResult bindingResult, Model model,
             @AuthenticationPrincipal User user) {
         if (bindingResult.hasErrors()) {
@@ -112,7 +111,7 @@ public class AccountController {
 
     private String modelAndViewForEdit(Model model,
             EditAccountForm accountForm, User user) {
-        model.addAttribute("accountForm", accountForm);
+        model.addAttribute(accountForm);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("languageList", Constants.LANGUAGE_LIST);
         model.addAttribute("categoryList", Constants.CATEGORY_LIST);

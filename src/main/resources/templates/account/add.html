@@ -9,7 +9,7 @@
   <body>
     <section layout:fragment="content">
       <div id="Catalog">
-        <form method="post" th:action="@{/account/add}" th:object="${accountForm}">
+        <form method="post" th:action="@{/account/add}" th:object="${addAccountForm}">
           <div th:if="${#fields.hasErrors('*')}"
               class="alert alert-error">
             Validation error
