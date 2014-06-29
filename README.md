@@ -36,16 +36,12 @@ Access
 http://localhost:8080/
 ```
 
-Edit with Eclipse
+Edit
 --------
 
-### About Eclipse Version
+Use Eclipse 4.4 or above.
 
-Use Kepler SR2 (4.3.2) and a feature patch.
-
-For further details ,  see https://wiki.eclipse.org/JDT/Eclipse_Java_8_Support_For_Kepler
-
-### Generate all Eclipse files
+Generate all Eclipse files with Gradle.
 
 ```sh
 ./gradlew eclipse
