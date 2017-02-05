@@ -48,3 +48,5 @@ task wrapper(type: Wrapper) {
 }
 
 apply from:'eclipse.gradle'
+
+idea.module.inheritOutputDirs = true
