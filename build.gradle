@@ -15,6 +15,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 version = '2.15.1-SNAPSHOT'
+ext.dependentVersion = '2.15.0'
 
 processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
@@ -37,7 +38,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.seasar.doma:doma:${version}")
+    compile("org.seasar.doma:doma:${dependentVersion}")
     compile("com.h2database:h2")
     compile("org.webjars:jquery:2.1.1")
     testCompile("junit:junit")
