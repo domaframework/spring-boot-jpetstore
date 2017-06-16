@@ -18,18 +18,16 @@ package sample.formatter;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Locale;
-
 import org.springframework.format.Formatter;
-import org.springframework.format.number.NumberFormatter;
-
+import org.springframework.format.number.NumberStyleFormatter;
 import sample.entity.Amount;
 
 public class AmountFormatter implements Formatter<Amount> {
 
-    private final NumberFormatter formatter;
+    private final NumberStyleFormatter formatter;
 
     public AmountFormatter() {
-        formatter = new NumberFormatter("$#,##0.00");
+        formatter = new NumberStyleFormatter("$#,##0.00");
     }
 
     @Override
