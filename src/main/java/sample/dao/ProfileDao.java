@@ -18,8 +18,7 @@ package sample.dao;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
-
-import sample.ConfigAutowireable;
+import org.seasar.doma.boot.ConfigAutowireable;
 import sample.entity.Profile;
 
 @Dao

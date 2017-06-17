@@ -18,9 +18,8 @@ package sample.dao;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
+import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.SqlLogType;
-
-import sample.ConfigAutowireable;
 import sample.entity.Signon;
 
 @Dao

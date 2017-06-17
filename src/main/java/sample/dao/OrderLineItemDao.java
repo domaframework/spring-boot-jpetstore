@@ -16,12 +16,10 @@
 package sample.dao;
 
 import java.util.List;
-
 import org.seasar.doma.BatchInsert;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
-
-import sample.ConfigAutowireable;
+import org.seasar.doma.boot.ConfigAutowireable;
 import sample.entity.OrderLineItem;
 
 @Dao
