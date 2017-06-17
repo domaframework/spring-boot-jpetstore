@@ -16,34 +16,30 @@
 package sample.web.search;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import sample.entity.Product;
 import sample.service.ProductService;
 
 @Controller
-@RequestMapping(value = "/search")
+@RequestMapping("/search")
 @Transactional
 public class SearchController {
 
     private final ProductService productService;
 
-    @Autowired
     public SearchController(ProductService productService) {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String search(@RequestParam("keyword") String keyword, Model model) {
-        List<Product> productList = productService
-                .searchProductList(keyword == null ? "" : keyword);
+    @GetMapping
+    public String search(@RequestParam(required = false, defaultValue = "") String keyword,
+            Model model) {
+        List<Product> productList = productService.searchProductList(keyword);
         model.addAttribute("productList", productList);
         return "search/list";
     }

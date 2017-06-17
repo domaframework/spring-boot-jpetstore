@@ -15,9 +15,7 @@
  */
 package sample.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sample.dao.CategoryDao;
 import sample.entity.Category;
 
@@ -26,7 +24,6 @@ public class CategoryService {
 
     private final CategoryDao categoryDao;
 
-    @Autowired
     public CategoryService(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
     }

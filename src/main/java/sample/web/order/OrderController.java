@@ -16,14 +16,14 @@
 package sample.web.order;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sample.entity.Order;
 import sample.entity.OrderLineItem;
@@ -39,13 +39,12 @@ public class OrderController {
 
     private final Cart cart;
 
-    @Autowired
     public OrderController(OrderService orderService, Cart cart) {
         this.orderService = orderService;
         this.cart = cart;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping
     public String confirm(Model model, @AuthenticationPrincipal User user,
             RedirectAttributes redirectAttributes) {
         if (cart.isEmpty()) {
@@ -58,7 +57,7 @@ public class OrderController {
         return "order/confirm";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping
     public String confirm(@AuthenticationPrincipal User user,
             RedirectAttributes redirectAttributes) {
         if (cart.isEmpty()) {

@@ -15,14 +15,12 @@
  */
 package sample.web.item;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import sample.service.ItemService;
 
 @Controller
@@ -32,13 +30,12 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @Autowired
     public ItemController(ItemService itemService) {
         this.itemService = itemService;
     }
 
-    @RequestMapping(value = "/{itemId}", method = RequestMethod.GET)
-    public String viewDetail(@PathVariable("itemId") String itemId, Model model) {
+    @GetMapping("/{itemId}")
+    public String viewDetail(@PathVariable String itemId, Model model) {
         model.addAttribute("item", itemService.getItem(itemId));
         return "item/detail";
     }

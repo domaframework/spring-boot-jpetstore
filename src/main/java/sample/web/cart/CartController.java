@@ -16,17 +16,16 @@
 package sample.web.cart;
 
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import sample.entity.Item;
 import sample.model.Cart;
 import sample.model.CartItem;
@@ -41,13 +40,12 @@ public class CartController {
 
     private final Cart cart;
 
-    @Autowired
     public CartController(ItemService itemService, Cart cart) {
         this.itemService = itemService;
         this.cart = cart;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping
     public String view(Model model) {
         CartForm cartForm = new CartForm();
         for (CartItem item : cart.getCartItemList()) {
@@ -60,7 +58,7 @@ public class CartController {
         return "cart/list";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping
     public String updateAll(@Validated CartForm cartForm, BindingResult result,
             Model model) {
         if (result.hasErrors()) {
@@ -85,8 +83,8 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @RequestMapping(value = "/item/{itemId}", method = RequestMethod.POST)
-    public String addItem(@PathVariable("itemId") String itemId, Model model) {
+    @PostMapping("/item/{itemId}")
+    public String addItem(@PathVariable String itemId, Model model) {
         if (cart.containsItemId(itemId)) {
             cart.incrementQuantityByItemId(itemId);
         } else {
@@ -98,19 +96,19 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @RequestMapping(value = "/item/{itemId}", method = RequestMethod.DELETE)
-    public String removeItem(@PathVariable("itemId") String id) {
-        cart.removeItemById(id);
+    @DeleteMapping("/item/{itemId}")
+    public String removeItem(@PathVariable String itemId) {
+        cart.removeItemById(itemId);
         return "redirect:/cart";
     }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    @GetMapping("/checkout")
     public String checkout(Model model) {
         model.addAttribute("cart", cart);
         return "cart/checkout";
     }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    @PostMapping("/checkout")
     public String checkout() {
         return "redirect:/order";
     }

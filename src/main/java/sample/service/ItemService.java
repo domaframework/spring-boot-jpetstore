@@ -16,10 +16,7 @@
 package sample.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sample.dao.ItemDao;
 import sample.entity.Item;
 
@@ -27,7 +24,6 @@ import sample.entity.Item;
 public class ItemService {
     private final ItemDao itemDao;
 
-    @Autowired
     public ItemService(ItemDao itemDao) {
         this.itemDao = itemDao;
     }

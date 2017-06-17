@@ -18,11 +18,8 @@ package sample.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import org.seasar.doma.jdbc.SelectOptions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sample.dao.ProductDao;
 import sample.entity.Product;
 
@@ -31,7 +28,6 @@ public class ProductService {
 
     private final ProductDao productDao;
 
-    @Autowired
     public ProductService(ProductDao productDao) {
         this.productDao = productDao;
     }
@@ -46,7 +42,7 @@ public class ProductService {
     }
 
     public List<Product> searchProductList(String keywords) {
-        List<String> keywordList = new ArrayList<String>();
+        List<String> keywordList = new ArrayList<>();
         for (StringTokenizer tokenizer = new StringTokenizer(
                 keywords.toLowerCase(), " ", false); tokenizer.hasMoreTokens();) {
             keywordList.add(tokenizer.nextToken());

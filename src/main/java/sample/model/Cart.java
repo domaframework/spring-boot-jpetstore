@@ -20,11 +20,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-
 import sample.entity.Amount;
 import sample.entity.Item;
 
@@ -34,9 +32,9 @@ public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Map<String, CartItem> itemMap = new HashMap<String, CartItem>();
+    private final Map<String, CartItem> itemMap = new HashMap<>();
 
-    private final List<CartItem> itemList = new ArrayList<CartItem>();
+    private final List<CartItem> itemList = new ArrayList<>();
 
     public List<CartItem> getCartItemList() {
         return itemList;

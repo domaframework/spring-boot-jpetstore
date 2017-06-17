@@ -24,7 +24,7 @@ public final class Constants {
     public final static List<String> CARD_TYPE_LIST;
 
     static {
-        List<String> cardList = new ArrayList<String>();
+        List<String> cardList = new ArrayList<>();
         cardList.add("Visa");
         cardList.add("MasterCard");
         cardList.add("American Express");
@@ -34,7 +34,7 @@ public final class Constants {
     public static final List<String> LANGUAGE_LIST;
 
     static {
-        List<String> langList = new ArrayList<String>();
+        List<String> langList = new ArrayList<>();
         langList.add("english");
         langList.add("japanese");
         LANGUAGE_LIST = Collections.unmodifiableList(langList);
@@ -43,7 +43,7 @@ public final class Constants {
     public static final List<String> CATEGORY_LIST;
 
     static {
-        List<String> catList = new ArrayList<String>();
+        List<String> catList = new ArrayList<>();
         catList.add("FISH");
         catList.add("DOGS");
         catList.add("REPTILES");

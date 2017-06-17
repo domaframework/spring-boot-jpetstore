@@ -16,15 +16,12 @@
 package sample.service;
 
 import java.util.Collections;
-
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import sample.dao.AccountDao;
 import sample.dao.ProfileDao;
 import sample.dao.SignonDao;
@@ -41,7 +38,6 @@ public class AccountService implements UserDetailsService {
 
     private final SignonDao signonDao;
 
-    @Autowired
     public AccountService(AccountDao accountDao, ProfileDao profileDao,
             SignonDao signonDao) {
         this.accountDao = accountDao;

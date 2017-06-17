@@ -18,10 +18,7 @@ package sample.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sample.dao.AccountDao;
 import sample.dao.ItemDao;
 import sample.dao.OrderDao;
@@ -43,7 +40,6 @@ public class OrderService {
 
     private final AccountDao accountDao;
 
-    @Autowired
     public OrderService(ItemDao itemDao, OrderDao orderDao,
             OrderLineItemDao orderLineItemDao, AccountDao accountDao) {
         this.itemDao = itemDao;
@@ -111,7 +107,7 @@ public class OrderService {
     }
 
     public List<OrderLineItem> createNewLineItems(Cart cart) {
-        ArrayList<OrderLineItem> lineItems = new ArrayList<OrderLineItem>();
+        ArrayList<OrderLineItem> lineItems = new ArrayList<>();
         for (CartItem cartItem : cart.getCartItemList()) {
             OrderLineItem lineItem = new OrderLineItem();
             lineItem.setLineNumber(lineItems.size() + 1);

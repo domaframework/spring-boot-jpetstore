@@ -16,7 +16,6 @@
 package sample.web.account;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,9 +25,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import sample.entity.Account;
 import sample.service.AccountService;
 import sample.web.Constants;
@@ -44,7 +44,6 @@ public class AccountController {
 
     private final PasswordValidator passwordValidator;
 
-    @Autowired
     public AccountController(AccountService accountService,
             PasswordEncoder passwordEncoder, PasswordValidator passwordValidator) {
         this.accountService = accountService;
@@ -57,12 +56,12 @@ public class AccountController {
         binder.addValidators(passwordValidator);
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.GET)
+    @GetMapping("add")
     public String add(Model model) {
         return modelAndViewForAdd(model, new AddAccountForm());
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PostMapping("add")
     public String add(
             @Validated AddAccountForm accountForm,
             BindingResult bindingResult, Model model) {
@@ -85,7 +84,7 @@ public class AccountController {
         return "account/add";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @GetMapping("/edit")
     public String edit(Model model, @AuthenticationPrincipal User user) {
         Account account = accountService.getAccount(user.getUsername());
         EditAccountForm accountForm = new EditAccountForm();
@@ -93,7 +92,7 @@ public class AccountController {
         return modelAndViewForEdit(model, accountForm, user);
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     public String edit(
             @Validated EditAccountForm accountForm,
             BindingResult bindingResult, Model model,

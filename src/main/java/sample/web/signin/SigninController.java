@@ -17,15 +17,15 @@ package sample.web.signin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/signin")
 @Transactional
 public class SigninController {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping
     public String signin() {
         return "signin/signin";
     }

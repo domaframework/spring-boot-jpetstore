@@ -16,11 +16,9 @@
 package sample.web;
 
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,8 +30,13 @@ import sample.service.AccountService;
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+    private final AccountService accountService;
+
+    public WebSecurityConfiguration(DataSource dataSource, AccountService accountService) {
+        this.dataSource = dataSource;
+        this.accountService = accountService;
+    }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
@@ -47,29 +50,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/cart/**", "/category/**", "/product/**",
                         "/item/**", "/search/**", "/account/add", "/images/**",
-                        "/css/**", "/js/**", "/webjars/**").permitAll()
+                        "/css/**", "/js/**", "/webjars/**")
+                .permitAll()
                 .anyRequest().authenticated();
         http.formLogin().loginPage("/signin").permitAll().and().logout()
                 .logoutUrl("/signout").permitAll();
         http.rememberMe().tokenRepository(persistentTokenRepository());
     }
 
-    @Configuration
-    protected static class AuthenticationConfiguration extends
-            GlobalAuthenticationConfigurerAdapter {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-        @Autowired
-        private AccountService accountService;
-
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
-        }
-
-        @Override
-        public void init(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(accountService).passwordEncoder(
-                    passwordEncoder());
-        }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(accountService).passwordEncoder(passwordEncoder());
     }
 }
