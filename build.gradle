@@ -4,25 +4,29 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "gradle.plugin.org.seasar.doma:compile:1.0.0"
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: "org.seasar.doma.compile"
 
 version = '2.17.0-SNAPSHOT'
 ext {
-    dependentVersion = '2.16.1'
+    dependentVersion = '2.35.0'
     domaSpringBootVersion = '1.1.0'
 }
 
-processResources.destinationDir = compileJava.destinationDir
-compileJava.dependsOn processResources
+springBoot {
+    mainClass = 'sample.Application'
+}
 
 jar {
     baseName = 'spring-boot-example'
@@ -38,22 +42,15 @@ repositories {
 }
 
 dependencies {
+    annotationProcessor("org.seasar.doma:doma-processor:${dependentVersion}")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.seasar.doma:doma:${dependentVersion}")
+    compile("org.seasar.doma:doma-core:${dependentVersion}")
     compile("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
     compile("com.h2database:h2")
     compile("org.webjars:jquery:2.1.1")
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile("junit:junit")
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
-}
-
-apply from:'eclipse.gradle'
-
-idea.module.inheritOutputDirs = true
