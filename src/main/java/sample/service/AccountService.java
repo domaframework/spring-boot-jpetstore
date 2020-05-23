@@ -15,70 +15,41 @@
  */
 package sample.service;
 
-import java.util.Collections;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import sample.dao.AccountDao;
-import sample.dao.ProfileDao;
-import sample.dao.SignonDao;
 import sample.entity.Account;
-import sample.entity.Profile;
-import sample.entity.Signon;
+import sample.repository.AccountRepository;
+
+import java.util.Collections;
 
 @Service
 public class AccountService implements UserDetailsService {
 
-    private final AccountDao accountDao;
+    private final AccountRepository accountRepository;
 
-    private final ProfileDao profileDao;
-
-    private final SignonDao signonDao;
-
-    public AccountService(AccountDao accountDao, ProfileDao profileDao,
-            SignonDao signonDao) {
-        this.accountDao = accountDao;
-        this.profileDao = profileDao;
-        this.signonDao = signonDao;
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 
     public Account getAccount(String username) {
-        return accountDao.selectAccountByUsername(username);
+        return accountRepository.selectAccountByUsername(username);
     }
 
     public void insertAccount(Account account) {
-        accountDao.insertAccount(account);
-
-        Profile profile = new Profile();
-        BeanUtils.copyProperties(account, profile);
-        profileDao.insertProfile(profile);
-
-        Signon signon = new Signon();
-        BeanUtils.copyProperties(account, signon);
-        signonDao.insertSignon(signon);
+        accountRepository.insertAccount(account);
     }
 
     public void updateAccount(Account account) {
-        accountDao.updateAccount(account);
-
-        Profile profile = new Profile();
-        BeanUtils.copyProperties(account, profile);
-        profileDao.updateProfile(profile);
-
-        Signon signon = new Signon();
-        BeanUtils.copyProperties(account, signon);
-        if (signon.getPassword() != null && signon.getPassword().length() > 0) {
-            signonDao.updateSignon(signon);
-        }
+        accountRepository.updateAccount(account);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        Account account = accountDao.selectAccountByUsername(username);
+        Account account = accountRepository.selectAccountByUsername(username);
         if (account == null) {
             throw new UsernameNotFoundException(username + " not found");
         }

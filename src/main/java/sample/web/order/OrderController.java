@@ -36,7 +36,6 @@ import sample.service.OrderService;
 public class OrderController {
 
     private final OrderService orderService;
-
     private final Cart cart;
 
     public OrderController(OrderService orderService, Cart cart) {
@@ -51,9 +50,7 @@ public class OrderController {
             return fillMessageAndredirectToIndex(redirectAttributes);
         }
         Order order = orderService.createNewOrder(user.getUsername(), cart);
-        List<OrderLineItem> lineItems = orderService.createNewLineItems(cart);
         model.addAttribute("order", order);
-        model.addAttribute("lineItems", lineItems);
         return "order/confirm";
     }
 
@@ -64,8 +61,7 @@ public class OrderController {
             return fillMessageAndredirectToIndex(redirectAttributes);
         }
         Order order = orderService.createNewOrder(user.getUsername(), cart);
-        List<OrderLineItem> lineItems = orderService.createNewLineItems(cart);
-        orderService.insertOrder(order, lineItems);
+        orderService.insertOrder(order);
         cart.clear();
         redirectAttributes.addFlashAttribute("message", "Thank you!");
         return "redirect:/";

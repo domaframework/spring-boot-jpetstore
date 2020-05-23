@@ -15,10 +15,10 @@
  */
 package sample.model;
 
-import java.io.Serializable;
-
 import sample.entity.Amount;
 import sample.entity.Item;
+
+import java.io.Serializable;
 
 public class CartItem implements Serializable {
 

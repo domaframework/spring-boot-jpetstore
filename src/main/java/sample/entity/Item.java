@@ -15,14 +15,16 @@
  */
 package sample.entity;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
+import org.seasar.doma.Metamodel;
+import org.seasar.doma.Transient;
 
-@Entity
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+@Entity(metamodel = @Metamodel)
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,15 +34,6 @@ public class Item implements Serializable {
 
     @Column(name = "PRODUCTID")
     private String productId;
-
-    @Column(insertable = false, updatable = false)
-    private String productName;
-
-    @Column(insertable = false, updatable = false)
-    private String productCategoryId;
-
-    @Column(insertable = false, updatable = false)
-    private String productDescription;
 
     private Amount listPrice;
 
@@ -66,21 +59,11 @@ public class Item implements Serializable {
     @Column(name = "ATTR5")
     private String attribute5;
 
-    @Column(name = "QTY", insertable = false, updatable = false)
-    private Integer quantity;
+    @Transient
+    private Inventory inventory = new Inventory();
 
-    @Override
-    public String toString() {
-        return "Item [itemId=" + itemId + ", productId=" + productId
-                + ", productName=" + productName + ", productCategoryId="
-                + productCategoryId + ", productDescription="
-                + productDescription + ", listPrice=" + listPrice
-                + ", unitCost=" + unitCost + ", supplierId=" + supplierId
-                + ", status=" + status + ", attribute1=" + attribute1
-                + ", attribute2=" + attribute2 + ", attribute3=" + attribute3
-                + ", attribute4=" + attribute4 + ", attribute5=" + attribute5
-                + ", quantity=" + quantity + "]";
-    }
+    @Transient
+    private Product product = new Product();
 
     public String getItemId() {
         return itemId;
@@ -99,27 +82,27 @@ public class Item implements Serializable {
     }
 
     public String getProductName() {
-        return productName;
+        return product.getName();
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        product.setName(productName);
     }
 
     public String getProductCategoryId() {
-        return productCategoryId;
+        return product.getCategoryId();
     }
 
     public void setProductCategoryId(String productCategoryId) {
-        this.productCategoryId = productCategoryId;
+        product.setCategoryId(productCategoryId);
     }
 
     public String getProductDescription() {
-        return productDescription;
+        return product.getDescription();
     }
 
     public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+        product.setDescription(productDescription);
     }
 
     public Amount getListPrice() {
@@ -195,11 +178,26 @@ public class Item implements Serializable {
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return inventory.getQuantity();
     }
 
     public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+        inventory.setQuantity(quantity);
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

@@ -15,18 +15,22 @@
  */
 package sample.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
+import org.seasar.doma.Metamodel;
 import org.seasar.doma.SequenceGenerator;
 import org.seasar.doma.Table;
+import org.seasar.doma.Transient;
 
-@Entity
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(metamodel = @Metamodel)
 @Table(name = "ORDERS")
 public class Order implements Serializable {
 
@@ -91,26 +95,11 @@ public class Order implements Serializable {
 
     private String locale;
 
-    @Column(insertable = false, updatable = false)
-    public String status;
+    @Transient
+    private OrderStatus orderStatus = new OrderStatus();
 
-    @Override
-    public String toString() {
-        return "Order [orderId=" + orderId + ", username=" + username
-                + ", orderDate=" + orderDate + ", shipAddress1=" + shipAddress1
-                + ", shipAddress2=" + shipAddress2 + ", shipCity=" + shipCity
-                + ", shipState=" + shipState + ", shipZip=" + shipZip
-                + ", shipCountry=" + shipCountry + ", billAddress1="
-                + billAddress1 + ", billAddress2=" + billAddress2
-                + ", billCity=" + billCity + ", billState=" + billState
-                + ", billZip=" + billZip + ", billCountry=" + billCountry
-                + ", courier=" + courier + ", totalPrice=" + totalPrice
-                + ", billToFirstName=" + billToFirstName + ", billToLastName="
-                + billToLastName + ", shipToFirstName=" + shipToFirstName
-                + ", shipToLastName=" + shipToLastName + ", creditCard="
-                + creditCard + ", expiryDate=" + expiryDate + ", cardType="
-                + cardType + ", locale=" + locale + ", status=" + status + "]";
-    }
+    @Transient
+    private List<OrderLineItem> lineItemList = new ArrayList<>();
 
     public Integer getOrderId() {
         return orderId;
@@ -134,6 +123,7 @@ public class Order implements Serializable {
 
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
+        orderStatus.setTimestamp(orderDate.toLocalDate());
     }
 
     public String getShipAddress1() {
@@ -313,11 +303,29 @@ public class Order implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        return orderStatus.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        orderStatus.setStatus(status);
     }
 
+    public OrderStatus getOrderStatus() {
+        orderStatus.setOrderId(orderId);
+        orderStatus.setLineNumber(orderId);
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void addLineItem(OrderLineItem lineItem) {
+        lineItemList.add(lineItem);
+    }
+
+    public List<OrderLineItem> getLineItemList() {
+        lineItemList.forEach(it -> it.setOrderId(getOrderId()));
+        return lineItemList;
+    }
 }

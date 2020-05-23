@@ -68,7 +68,7 @@
                 <th>Price</th>
                 <th>Total Cost</th>
               </tr>
-              <tr th:each="item : ${lineItems}">
+              <tr th:each="item : ${order.lineItemList}">
                 <td><a th:href="@{|/item/${item.itemId}|}" th:text="${item.itemId}"></a></td>
                 <td th:text="${item.productName}"></td>
                 <td th:text="${item.quantity}"></td>

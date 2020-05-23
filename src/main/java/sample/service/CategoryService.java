@@ -16,20 +16,20 @@
 package sample.service;
 
 import org.springframework.stereotype.Service;
-import sample.dao.CategoryDao;
+import sample.repository.CategoryRepository;
 import sample.entity.Category;
 
 @Service
 public class CategoryService {
 
-    private final CategoryDao categoryDao;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryDao categoryDao) {
-        this.categoryDao = categoryDao;
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     public Category getCategory(String categoryId) {
-        return categoryDao.selectCategory(categoryId);
+        return categoryRepository.selectCategory(categoryId);
     }
 
 }

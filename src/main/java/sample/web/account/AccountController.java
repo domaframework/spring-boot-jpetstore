@@ -39,9 +39,7 @@ import sample.web.Constants;
 public class AccountController {
 
     private final AccountService accountService;
-
     private final PasswordEncoder passwordEncoder;
-
     private final PasswordValidator passwordValidator;
 
     public AccountController(AccountService accountService,

@@ -20,7 +20,7 @@ apply plugin: "org.seasar.doma.compile"
 
 version = '2.17.0-SNAPSHOT'
 ext {
-    dependentVersion = '2.35.0'
+    dependentVersion = '2.36.0-beta-1'
     domaSpringBootVersion = '1.1.0'
 }
 

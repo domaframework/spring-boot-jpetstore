@@ -19,8 +19,9 @@ import java.io.Serializable;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
+import org.seasar.doma.Metamodel;
 
-@Entity
+@Entity(metamodel = @Metamodel)
 public class Signon implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -15,67 +15,52 @@
  */
 package sample.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.stereotype.Service;
-import sample.dao.AccountDao;
-import sample.dao.ItemDao;
-import sample.dao.OrderDao;
-import sample.dao.OrderLineItemDao;
 import sample.entity.Account;
 import sample.entity.Order;
 import sample.entity.OrderLineItem;
 import sample.model.Cart;
 import sample.model.CartItem;
+import sample.repository.AccountRepository;
+import sample.repository.ItemRepository;
+import sample.repository.OrderRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderService {
 
-    private final ItemDao itemDao;
+    private final ItemRepository itemRepository;
+    private final OrderRepository orderRepository;
+    private final AccountRepository accountRepository;
 
-    private final OrderDao orderDao;
-
-    private final OrderLineItemDao orderLineItemDao;
-
-    private final AccountDao accountDao;
-
-    public OrderService(ItemDao itemDao, OrderDao orderDao,
-            OrderLineItemDao orderLineItemDao, AccountDao accountDao) {
-        this.itemDao = itemDao;
-        this.orderDao = orderDao;
-        this.orderLineItemDao = orderLineItemDao;
-        this.accountDao = accountDao;
+    public OrderService(ItemRepository itemRepository,
+                        OrderRepository orderRepository,
+                        AccountRepository accountRepository) {
+        this.itemRepository = itemRepository;
+        this.orderRepository = orderRepository;
+        this.accountRepository = accountRepository;
     }
 
-    public void insertOrder(Order order, List<OrderLineItem> lineItems) {
-        for (OrderLineItem lineItem : lineItems) {
-            itemDao.updateInventoryQuantity(lineItem.getItemId(),
+    public void insertOrder(Order order) {
+        for (OrderLineItem lineItem : order.getLineItemList()) {
+            itemRepository.updateInventoryQuantity(lineItem.getItemId(),
                     lineItem.getQuantity());
         }
-
-        orderDao.insertOrder(order);
-        orderDao.insertOrderStatus(order);
-        for (OrderLineItem lineItem : lineItems) {
-            lineItem.setOrderId(order.getOrderId());
-        }
-        orderLineItemDao.insertLineItem(lineItems);
+        orderRepository.insertOrder(order);
     }
 
     public Order getOrder(int orderId) {
-        return orderDao.selectOrder(orderId);
-    }
-
-    public List<OrderLineItem> getOrderLineItems(int orderId) {
-        return orderLineItemDao.selectLineItemsByOrderId(orderId);
+        return orderRepository.selectOrder(orderId);
     }
 
     public List<Order> getOrdersByUsername(String username) {
-        return orderDao.selectOrdersByUsername(username);
+        return orderRepository.selectOrdersByUsername(username);
     }
 
     public Order createNewOrder(String username, Cart cart) {
-        Account account = accountDao.selectAccountByUsername(username);
+        Account account = accountRepository.selectAccountByUsername(username);
 
         Order order = new Order();
         order.setUsername(account.getUsername());
@@ -103,20 +88,17 @@ public class OrderService {
         order.setCourier("UPS");
         order.setLocale("CA");
         order.setStatus("P");
-        return order;
-    }
 
-    public List<OrderLineItem> createNewLineItems(Cart cart) {
-        ArrayList<OrderLineItem> lineItems = new ArrayList<>();
+        int i = 0;
         for (CartItem cartItem : cart.getCartItemList()) {
             OrderLineItem lineItem = new OrderLineItem();
-            lineItem.setLineNumber(lineItems.size() + 1);
+            lineItem.setLineNumber(++i);
             lineItem.setQuantity(cartItem.getQuantity());
             lineItem.setItemId(cartItem.getItem().getItemId());
             lineItem.setUnitPrice(cartItem.getItem().getListPrice());
-            lineItems.add(lineItem);
+            order.addLineItem(lineItem);
         }
-        return lineItems;
-    }
 
+        return order;
+    }
 }

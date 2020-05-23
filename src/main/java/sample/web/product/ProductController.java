@@ -30,7 +30,6 @@ import sample.service.ProductService;
 public class ProductController {
 
     private ProductService productService;
-
     private ItemService itemService;
 
     public ProductController(ProductService productService,

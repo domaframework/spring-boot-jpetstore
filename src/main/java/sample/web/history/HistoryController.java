@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sample.entity.Order;
-import sample.entity.OrderLineItem;
 import sample.service.OrderService;
 
 @Controller
@@ -50,9 +49,7 @@ public class HistoryController {
     @GetMapping("{orderId}")
     public String viewDetail(@PathVariable int orderId, Model model) {
         Order order = orderService.getOrder(orderId);
-        List<OrderLineItem> lineItems = orderService.getOrderLineItems(orderId);
         model.addAttribute("order", order);
-        model.addAttribute("lineItems", lineItems);
         return "history/detail";
     }
 }

@@ -15,21 +15,22 @@
  */
 package sample.entity;
 
-import java.io.Serializable;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
+import org.seasar.doma.Metamodel;
+import org.seasar.doma.Transient;
 
-@Entity
+import java.io.Serializable;
+
+@Entity(metamodel = @Metamodel)
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(name = "USERID")
     private String username;
-
-    private String password;
 
     private String email;
 
@@ -55,33 +56,12 @@ public class Account implements Serializable {
 
     private String phone;
 
-    @Column(name = "FAVCATEGORY")
-    private String favouriteCategoryId;
-
-    @Column(name = "LANGPREF")
-    private String languagePreference;
-
-    @Column(name = "MYLISTOPT")
-    private boolean listOption;
-
-    @Column(name = "BANNEROPT")
-    private boolean bannerOption;
-
-    private String bannerName;
-
-    @Override
-    public String toString() {
-        return "Account [username=" + username + ", password=" + password
-                + ", email=" + email + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", status=" + status
-                + ", address1=" + address1 + ", address2=" + address2
-                + ", city=" + city + ", state=" + state + ", zip=" + zip
-                + ", country=" + country + ", phone=" + phone
-                + ", favouriteCategoryId=" + favouriteCategoryId
-                + ", languagePreference=" + languagePreference
-                + ", listOption=" + listOption + ", bannerOption="
-                + bannerOption + ", bannerName=" + bannerName + "]";
-    }
+    @Transient
+    private Profile profile = new Profile();
+    @Transient
+    private Signon signon = new Signon();
+    @Transient
+    private BannerData bannerdata = new BannerData();
 
     public String getUsername() {
         return username;
@@ -89,14 +69,16 @@ public class Account implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+        profile.setUsername(username);
+        signon.setUsername(username);
     }
 
     public String getPassword() {
-        return password;
+        return signon.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        signon.setPassword(password);
     }
 
     public String getEmail() {
@@ -188,43 +170,66 @@ public class Account implements Serializable {
     }
 
     public String getFavouriteCategoryId() {
-        return favouriteCategoryId;
+        return profile.getFavouriteCategoryId();
     }
 
     public void setFavouriteCategoryId(String favouriteCategoryId) {
-        this.favouriteCategoryId = favouriteCategoryId;
+        profile.setFavouriteCategoryId(favouriteCategoryId);
     }
 
     public String getLanguagePreference() {
-        return languagePreference;
+        return profile.getLanguagePreference();
     }
 
     public void setLanguagePreference(String languagePreference) {
-        this.languagePreference = languagePreference;
+        profile.setLanguagePreference(languagePreference);
     }
 
     public boolean isListOption() {
-        return listOption;
+        return profile.isListOption();
     }
 
     public void setListOption(boolean listOption) {
-        this.listOption = listOption;
+        profile.setListOption(listOption);
     }
 
     public boolean isBannerOption() {
-        return bannerOption;
+        return profile.isBannerOption();
     }
 
     public void setBannerOption(boolean bannerOption) {
-        this.bannerOption = bannerOption;
+        profile.setBannerOption(bannerOption);
     }
 
     public String getBannerName() {
-        return bannerName;
+        return bannerdata.getBannerName();
     }
 
     public void setBannerName(String bannerName) {
-        this.bannerName = bannerName;
+        bannerdata.setBannerName(bannerName);
     }
 
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public Signon getSignon() {
+        return signon;
+    }
+
+    public void setSignon(Signon signon) {
+        this.signon = signon;
+    }
+
+    public BannerData getBannerData() {
+        return bannerdata;
+    }
+
+    public void setBannerData(BannerData bannerdata) {
+        this.bannerdata = bannerdata;
+    }
 }

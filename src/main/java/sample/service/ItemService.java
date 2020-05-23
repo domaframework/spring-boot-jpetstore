@@ -17,27 +17,27 @@ package sample.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import sample.dao.ItemDao;
+import sample.repository.ItemRepository;
 import sample.entity.Item;
 
 @Service
 public class ItemService {
-    private final ItemDao itemDao;
+    private final ItemRepository itemRepository;
 
-    public ItemService(ItemDao itemDao) {
-        this.itemDao = itemDao;
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
     }
 
     public boolean isItemInStock(String itemId) {
-        Integer i = itemDao.selectInventoryQuantity(itemId);
-        return (i != null && i.intValue() > 0);
+        Integer i = itemRepository.selectInventoryQuantity(itemId);
+        return (i != null && i > 0);
     }
 
     public Item getItem(String itemId) {
-        return itemDao.selectItem(itemId);
+        return itemRepository.selectItem(itemId);
     }
 
     public List<Item> getItemsByProduct(String productId) {
-        return itemDao.selectItemsByProduct(productId);
+        return itemRepository.selectItemsByProduct(productId);
     }
 }

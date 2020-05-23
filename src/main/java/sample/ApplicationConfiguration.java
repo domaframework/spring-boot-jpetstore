@@ -15,8 +15,11 @@
  */
 package sample;
 
+import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.NoCacheSqlFileRepository;
 import org.seasar.doma.jdbc.SqlFileRepository;
+import org.seasar.doma.jdbc.criteria.Entityql;
+import org.seasar.doma.jdbc.criteria.NativeSql;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +28,16 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 public class ApplicationConfiguration {
+
+    @Bean
+    public Entityql entityql(Config config) {
+        return new Entityql(config);
+    }
+
+    @Bean
+    public NativeSql nativeSql(Config config) {
+        return new NativeSql(config);
+    }
 
     @Bean
     public SqlFileRepository sqlFileRepository() {

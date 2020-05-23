@@ -13,27 +13,25 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package sample.dao;
+package sample.repository;
 
-import java.util.List;
-import org.seasar.doma.Dao;
-import org.seasar.doma.Select;
-import org.seasar.doma.boot.ConfigAutowireable;
-import org.seasar.doma.jdbc.SelectOptions;
-import sample.entity.Product;
+import org.seasar.doma.jdbc.criteria.Entityql;
+import org.springframework.stereotype.Repository;
+import sample.entity.Category;
+import sample.entity.Category_;
 
-@Dao
-@ConfigAutowireable
-public interface ProductDao {
+@Repository
+public class CategoryRepository {
 
-    @Select
-    Product selectProduct(String productId);
+    private final Entityql entityql;
 
-    @Select
-    List<Product> selectProductsByCategory(String categoryId,
-            SelectOptions options);
+    public CategoryRepository(Entityql entityql) {
+        this.entityql = entityql;
+    }
 
-    @Select
-    List<Product> selectProductList(List<String> keywords, SelectOptions options);
+    public Category selectCategory(String categoryId) {
+        Category_ ca = new Category_();
 
+        return entityql.from(ca).where(c -> c.eq(ca.categoryId, categoryId)).fetchOne();
+    }
 }

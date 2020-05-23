@@ -18,27 +18,26 @@ package sample.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import org.seasar.doma.jdbc.SelectOptions;
+
 import org.springframework.stereotype.Service;
-import sample.dao.ProductDao;
+import sample.repository.ProductRepository;
 import sample.entity.Product;
 
 @Service
 public class ProductService {
 
-    private final ProductDao productDao;
+    private final ProductRepository productRepository;
 
-    public ProductService(ProductDao productDao) {
-        this.productDao = productDao;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public Product getProduct(String productId) {
-        return productDao.selectProduct(productId);
+        return productRepository.selectProduct(productId);
     }
 
     public List<Product> getProductListByCategory(String categoryId) {
-        return productDao.selectProductsByCategory(categoryId,
-                SelectOptions.get());
+        return productRepository.selectProductsByCategory(categoryId);
     }
 
     public List<Product> searchProductList(String keywords) {
@@ -47,7 +46,7 @@ public class ProductService {
                 keywords.toLowerCase(), " ", false); tokenizer.hasMoreTokens();) {
             keywordList.add(tokenizer.nextToken());
         }
-        return productDao.selectProductList(keywordList, SelectOptions.get());
+        return productRepository.selectProductList(keywordList);
     }
 
 }

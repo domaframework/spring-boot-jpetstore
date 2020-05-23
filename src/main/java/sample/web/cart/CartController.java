@@ -37,7 +37,6 @@ import sample.service.ItemService;
 public class CartController {
 
     private final ItemService itemService;
-
     private final Cart cart;
 
     public CartController(ItemService itemService, Cart cart) {
