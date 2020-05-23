@@ -1,21 +1,5 @@
-/*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package sample.web.history;
 
-import java.util.List;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -24,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sample.entity.Order;
-import sample.entity.OrderLineItem;
 import sample.service.OrderService;
 
 @Controller
@@ -33,26 +15,23 @@ import sample.service.OrderService;
 @Transactional
 public class HistoryController {
 
-    private final OrderService orderService;
+  private final OrderService orderService;
 
-    public HistoryController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+  public HistoryController(OrderService orderService) {
+    this.orderService = orderService;
+  }
 
-    @GetMapping
-    public String viewList(Model model, @AuthenticationPrincipal User user) {
-        List<Order> orderList = orderService.getOrdersByUsername(user
-                .getUsername());
-        model.addAttribute("orderList", orderList);
-        return "history/list";
-    }
+  @GetMapping
+  public String viewList(Model model, @AuthenticationPrincipal User user) {
+    var orderList = orderService.getOrdersByUsername(user.getUsername());
+    model.addAttribute("orderList", orderList);
+    return "history/list";
+  }
 
-    @GetMapping("{orderId}")
-    public String viewDetail(@PathVariable int orderId, Model model) {
-        Order order = orderService.getOrder(orderId);
-        List<OrderLineItem> lineItems = orderService.getOrderLineItems(orderId);
-        model.addAttribute("order", order);
-        model.addAttribute("lineItems", lineItems);
-        return "history/detail";
-    }
+  @GetMapping("{orderId}")
+  public String viewDetail(@PathVariable int orderId, Model model) {
+    var order = orderService.getOrder(orderId);
+    model.addAttribute("order", order);
+    return "history/detail";
+  }
 }

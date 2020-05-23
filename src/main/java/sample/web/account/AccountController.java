@@ -1,18 +1,3 @@
-/*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package sample.web.account;
 
 import org.springframework.beans.BeanUtils;
@@ -38,82 +23,80 @@ import sample.web.Constants;
 @Transactional
 public class AccountController {
 
-    private final AccountService accountService;
+  private final AccountService accountService;
+  private final PasswordEncoder passwordEncoder;
+  private final PasswordValidator passwordValidator;
 
-    private final PasswordEncoder passwordEncoder;
+  public AccountController(
+      AccountService accountService,
+      PasswordEncoder passwordEncoder,
+      PasswordValidator passwordValidator) {
+    this.accountService = accountService;
+    this.passwordEncoder = passwordEncoder;
+    this.passwordValidator = passwordValidator;
+  }
 
-    private final PasswordValidator passwordValidator;
+  @InitBinder("addAccountForm")
+  public void initBinder(WebDataBinder binder) {
+    binder.addValidators(passwordValidator);
+  }
 
-    public AccountController(AccountService accountService,
-            PasswordEncoder passwordEncoder, PasswordValidator passwordValidator) {
-        this.accountService = accountService;
-        this.passwordEncoder = passwordEncoder;
-        this.passwordValidator = passwordValidator;
+  @GetMapping("add")
+  public String add(Model model) {
+    return modelAndViewForAdd(model, new AddAccountForm());
+  }
+
+  @PostMapping("add")
+  public String add(
+      @Validated AddAccountForm accountForm, BindingResult bindingResult, Model model) {
+    if (bindingResult.hasErrors()) {
+      return modelAndViewForAdd(model, accountForm);
     }
+    var account = new Account();
+    BeanUtils.copyProperties(accountForm, account);
+    var rawPassword = accountForm.getPassword();
+    var encodedPassword = passwordEncoder.encode(rawPassword);
+    account.setPassword(encodedPassword);
+    accountService.insertAccount(account);
+    return "redirect:/signin";
+  }
 
-    @InitBinder("addAccountForm")
-    public void initBinder(WebDataBinder binder) {
-        binder.addValidators(passwordValidator);
+  private String modelAndViewForAdd(Model model, AddAccountForm accountForm) {
+    model.addAttribute(accountForm);
+    model.addAttribute("languageList", Constants.LANGUAGE_LIST);
+    model.addAttribute("categoryList", Constants.CATEGORY_LIST);
+    return "account/add";
+  }
+
+  @GetMapping("/edit")
+  public String edit(Model model, @AuthenticationPrincipal User user) {
+    var account = accountService.getAccount(user.getUsername());
+    var accountForm = new EditAccountForm();
+    BeanUtils.copyProperties(account, accountForm, "password");
+    return modelAndViewForEdit(model, accountForm, user);
+  }
+
+  @PostMapping("/edit")
+  public String edit(
+      @Validated EditAccountForm accountForm,
+      BindingResult bindingResult,
+      Model model,
+      @AuthenticationPrincipal User user) {
+    if (bindingResult.hasErrors()) {
+      return modelAndViewForEdit(model, accountForm, user);
     }
+    var account = accountService.getAccount(user.getUsername());
+    BeanUtils.copyProperties(accountForm, account);
+    account.setUsername(user.getUsername());
+    accountService.updateAccount(account);
+    return "redirect:/";
+  }
 
-    @GetMapping("add")
-    public String add(Model model) {
-        return modelAndViewForAdd(model, new AddAccountForm());
-    }
-
-    @PostMapping("add")
-    public String add(
-            @Validated AddAccountForm accountForm,
-            BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return modelAndViewForAdd(model, accountForm);
-        }
-        Account account = new Account();
-        BeanUtils.copyProperties(accountForm, account);
-        String rawPassword = accountForm.getPassword();
-        String encodedPassword = passwordEncoder.encode(rawPassword);
-        account.setPassword(encodedPassword);
-        accountService.insertAccount(account);
-        return "redirect:/signin";
-    }
-
-    private String modelAndViewForAdd(Model model, AddAccountForm accountForm) {
-        model.addAttribute(accountForm);
-        model.addAttribute("languageList", Constants.LANGUAGE_LIST);
-        model.addAttribute("categoryList", Constants.CATEGORY_LIST);
-        return "account/add";
-    }
-
-    @GetMapping("/edit")
-    public String edit(Model model, @AuthenticationPrincipal User user) {
-        Account account = accountService.getAccount(user.getUsername());
-        EditAccountForm accountForm = new EditAccountForm();
-        BeanUtils.copyProperties(account, accountForm, "password");
-        return modelAndViewForEdit(model, accountForm, user);
-    }
-
-    @PostMapping("/edit")
-    public String edit(
-            @Validated EditAccountForm accountForm,
-            BindingResult bindingResult, Model model,
-            @AuthenticationPrincipal User user) {
-        if (bindingResult.hasErrors()) {
-            return modelAndViewForEdit(model, accountForm, user);
-        }
-        Account account = accountService.getAccount(user.getUsername());
-        BeanUtils.copyProperties(accountForm, account);
-        account.setUsername(user.getUsername());
-        accountService.updateAccount(account);
-        return "redirect:/";
-    }
-
-    private String modelAndViewForEdit(Model model,
-            EditAccountForm accountForm, User user) {
-        model.addAttribute(accountForm);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("languageList", Constants.LANGUAGE_LIST);
-        model.addAttribute("categoryList", Constants.CATEGORY_LIST);
-        return "account/edit";
-    }
-
+  private String modelAndViewForEdit(Model model, EditAccountForm accountForm, User user) {
+    model.addAttribute(accountForm);
+    model.addAttribute("username", user.getUsername());
+    model.addAttribute("languageList", Constants.LANGUAGE_LIST);
+    model.addAttribute("categoryList", Constants.CATEGORY_LIST);
+    return "account/edit";
+  }
 }

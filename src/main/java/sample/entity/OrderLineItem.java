@@ -1,176 +1,110 @@
-/*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package sample.entity;
 
 import java.io.Serializable;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
+import org.seasar.doma.Metamodel;
 import org.seasar.doma.Table;
+import org.seasar.doma.Transient;
 
-@Entity
+@Entity(metamodel = @Metamodel)
 @Table(name = "LINEITEM")
 public class OrderLineItem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Id
-    private Integer orderId;
+  @Id private Integer orderId;
 
-    @Id
-    @Column(name = "LINENUM")
-    private int lineNumber;
+  @Id
+  @Column(name = "LINENUM")
+  private int lineNumber;
 
-    private int quantity;
+  private int quantity;
 
-    private String itemId;
+  private String itemId;
 
-    private Amount unitPrice;
+  private Amount unitPrice;
 
-    @Column(insertable = false, updatable = false)
-    private Amount listPrice;
+  @Transient private Item item = new Item();
 
-    @Column(insertable = false, updatable = false)
-    private String productName;
+  public Integer getOrderId() {
+    return orderId;
+  }
 
-    @Column(insertable = false, updatable = false)
-    private String attribute1;
+  public void setOrderId(Integer orderId) {
+    this.orderId = orderId;
+  }
 
-    @Column(insertable = false, updatable = false)
-    private String attribute2;
+  public int getLineNumber() {
+    return lineNumber;
+  }
 
-    @Column(insertable = false, updatable = false)
-    private String attribute3;
+  public void setLineNumber(int lineNumber) {
+    this.lineNumber = lineNumber;
+  }
 
-    @Column(insertable = false, updatable = false)
-    private String attribute4;
+  public int getQuantity() {
+    return quantity;
+  }
 
-    @Column(insertable = false, updatable = false)
-    private String attribute5;
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 
-    public Amount getTotal() {
-        return listPrice.multiply(quantity);
-    }
+  public String getItemId() {
+    return itemId;
+  }
 
-    @Override
-    public String toString() {
-        return "OrderLineItem [orderId=" + orderId + ", lineNumber="
-                + lineNumber + ", quantity=" + quantity + ", itemId=" + itemId
-                + ", unitPrice=" + unitPrice + ", listPrice=" + listPrice
-                + ", productName=" + productName + ", attribute1=" + attribute1
-                + ", attribute2=" + attribute2 + ", attribute3=" + attribute3
-                + ", attribute4=" + attribute4 + ", attribute5=" + attribute5
-                + "]";
-    }
+  public void setItemId(String itemId) {
+    this.itemId = itemId;
+  }
 
-    public Integer getOrderId() {
-        return orderId;
-    }
+  public Amount getUnitPrice() {
+    return unitPrice;
+  }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
+  public void setUnitPrice(Amount unitPrice) {
+    this.unitPrice = unitPrice;
+  }
 
-    public int getLineNumber() {
-        return lineNumber;
-    }
+  public Amount getListPrice() {
+    return item.getListPrice();
+  }
 
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
-    }
+  public String getProductName() {
+    return item.getProductName();
+  }
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public String getAttribute1() {
+    return item.getAttribute1();
+  }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public String getAttribute2() {
+    return item.getAttribute2();
+  }
 
-    public String getItemId() {
-        return itemId;
-    }
+  public String getAttribute3() {
+    return item.getAttribute3();
+  }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
+  public String getAttribute4() {
+    return item.getAttribute4();
+  }
 
-    public Amount getUnitPrice() {
-        return unitPrice;
-    }
+  public String getAttribute5() {
+    return item.getAttribute5();
+  }
 
-    public void setUnitPrice(Amount unitPrice) {
-        this.unitPrice = unitPrice;
-    }
+  public Amount getTotal() {
+    return getListPrice().multiply(quantity);
+  }
 
-    public Amount getListPrice() {
-        return listPrice;
-    }
+  public Item getItem() {
+    return item;
+  }
 
-    public void setListPrice(Amount listPrice) {
-        this.listPrice = listPrice;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getAttribute1() {
-        return attribute1;
-    }
-
-    public void setAttribute1(String attribute1) {
-        this.attribute1 = attribute1;
-    }
-
-    public String getAttribute2() {
-        return attribute2;
-    }
-
-    public void setAttribute2(String attribute2) {
-        this.attribute2 = attribute2;
-    }
-
-    public String getAttribute3() {
-        return attribute3;
-    }
-
-    public void setAttribute3(String attribute3) {
-        this.attribute3 = attribute3;
-    }
-
-    public String getAttribute4() {
-        return attribute4;
-    }
-
-    public void setAttribute4(String attribute4) {
-        this.attribute4 = attribute4;
-    }
-
-    public String getAttribute5() {
-        return attribute5;
-    }
-
-    public void setAttribute5(String attribute5) {
-        this.attribute5 = attribute5;
-    }
-
+  public void setItem(Item item) {
+    this.item = item;
+  }
 }

@@ -1,230 +1,216 @@
-/*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package sample.entity;
 
 import java.io.Serializable;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
+import org.seasar.doma.Metamodel;
+import org.seasar.doma.Transient;
 
-@Entity
+@Entity(metamodel = @Metamodel)
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Id
-    private String username;
+  @Id
+  @Column(name = "USERID")
+  private String username;
 
-    private String password;
+  private String email;
 
-    private String email;
+  private String firstName;
 
-    private String firstName;
+  private String lastName;
 
-    private String lastName;
+  private String status;
 
-    private String status;
+  @Column(name = "ADDR1")
+  private String address1;
 
-    @Column(name = "ADDR1")
-    private String address1;
+  @Column(name = "ADDR2")
+  private String address2;
 
-    @Column(name = "ADDR2")
-    private String address2;
+  private String city;
 
-    private String city;
+  private String state;
 
-    private String state;
+  private String zip;
 
-    private String zip;
+  private String country;
 
-    private String country;
+  private String phone;
 
-    private String phone;
+  @Transient private Profile profile = new Profile();
+  @Transient private Signon signon = new Signon();
+  @Transient private BannerData bannerdata = new BannerData();
 
-    @Column(name = "FAVCATEGORY")
-    private String favouriteCategoryId;
+  public String getUsername() {
+    return username;
+  }
 
-    @Column(name = "LANGPREF")
-    private String languagePreference;
+  public void setUsername(String username) {
+    this.username = username;
+    profile.setUsername(username);
+    signon.setUsername(username);
+  }
 
-    @Column(name = "MYLISTOPT")
-    private boolean listOption;
+  public String getPassword() {
+    return signon.getPassword();
+  }
 
-    @Column(name = "BANNEROPT")
-    private boolean bannerOption;
+  public void setPassword(String password) {
+    signon.setPassword(password);
+  }
 
-    private String bannerName;
+  public String getEmail() {
+    return email;
+  }
 
-    @Override
-    public String toString() {
-        return "Account [username=" + username + ", password=" + password
-                + ", email=" + email + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", status=" + status
-                + ", address1=" + address1 + ", address2=" + address2
-                + ", city=" + city + ", state=" + state + ", zip=" + zip
-                + ", country=" + country + ", phone=" + phone
-                + ", favouriteCategoryId=" + favouriteCategoryId
-                + ", languagePreference=" + languagePreference
-                + ", listOption=" + listOption + ", bannerOption="
-                + bannerOption + ", bannerName=" + bannerName + "]";
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getAddress1() {
+    return address1;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setAddress1(String address1) {
+    this.address1 = address1;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getAddress2() {
+    return address2;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setAddress2(String address2) {
+    this.address2 = address2;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public String getAddress1() {
-        return address1;
-    }
+  public String getState() {
+    return state;
+  }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
+  public void setState(String state) {
+    this.state = state;
+  }
 
-    public String getAddress2() {
-        return address2;
-    }
+  public String getZip() {
+    return zip;
+  }
 
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
+  public void setZip(String zip) {
+    this.zip = zip;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public String getCountry() {
+    return country;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-    public String getState() {
-        return state;
-    }
+  public String getPhone() {
+    return phone;
+  }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-    public String getZip() {
-        return zip;
-    }
+  public String getFavouriteCategoryId() {
+    return profile.getFavouriteCategoryId();
+  }
 
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
+  public void setFavouriteCategoryId(String favouriteCategoryId) {
+    profile.setFavouriteCategoryId(favouriteCategoryId);
+  }
 
-    public String getCountry() {
-        return country;
-    }
+  public String getLanguagePreference() {
+    return profile.getLanguagePreference();
+  }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  public void setLanguagePreference(String languagePreference) {
+    profile.setLanguagePreference(languagePreference);
+  }
 
-    public String getPhone() {
-        return phone;
-    }
+  public boolean isListOption() {
+    return profile.isListOption();
+  }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+  public void setListOption(boolean listOption) {
+    profile.setListOption(listOption);
+  }
 
-    public String getFavouriteCategoryId() {
-        return favouriteCategoryId;
-    }
+  public boolean isBannerOption() {
+    return profile.isBannerOption();
+  }
 
-    public void setFavouriteCategoryId(String favouriteCategoryId) {
-        this.favouriteCategoryId = favouriteCategoryId;
-    }
+  public void setBannerOption(boolean bannerOption) {
+    profile.setBannerOption(bannerOption);
+  }
 
-    public String getLanguagePreference() {
-        return languagePreference;
-    }
+  public String getBannerName() {
+    return bannerdata.getBannerName();
+  }
 
-    public void setLanguagePreference(String languagePreference) {
-        this.languagePreference = languagePreference;
-    }
+  public void setBannerName(String bannerName) {
+    bannerdata.setBannerName(bannerName);
+  }
 
-    public boolean isListOption() {
-        return listOption;
-    }
+  public Profile getProfile() {
+    return profile;
+  }
 
-    public void setListOption(boolean listOption) {
-        this.listOption = listOption;
-    }
+  public void setProfile(Profile profile) {
+    this.profile = profile;
+  }
 
-    public boolean isBannerOption() {
-        return bannerOption;
-    }
+  public Signon getSignon() {
+    return signon;
+  }
 
-    public void setBannerOption(boolean bannerOption) {
-        this.bannerOption = bannerOption;
-    }
+  public void setSignon(Signon signon) {
+    this.signon = signon;
+  }
 
-    public String getBannerName() {
-        return bannerName;
-    }
+  public BannerData getBannerData() {
+    return bannerdata;
+  }
 
-    public void setBannerName(String bannerName) {
-        this.bannerName = bannerName;
-    }
-
+  public void setBannerData(BannerData bannerdata) {
+    this.bannerdata = bannerdata;
+  }
 }

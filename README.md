@@ -3,13 +3,13 @@ JPet Store Sample
 
 This sample shows how easy to integrate [Doma][doma] with  [Spring Boot][spring-boot] .
 
-And this sample is useful as reference to combine following libraries.
+Besides, this sample is useful as a reference to combine the following libraries:
 
 - Spring Security 
 - Thymeleaf
 - Hibernate Validator
 
-Java 8 is needed to run this sample.
+You need Java 11 or later to build and run this sample.
 
 Clone
 --------
@@ -39,7 +39,11 @@ http://localhost:8080/
 Edit
 --------
 
-Use Eclipse 4.4 or above.
+### IntelliJ IDEA
+
+Import this sample as a Gradle project.
+
+### With Eclipse
 
 Generate all Eclipse files with Gradle.
 

@@ -1,59 +1,64 @@
-buildscript {
-    ext {
-        springBootVersion = '1.5.4.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+plugins {
+    id "java"
+    id "com.diffplug.eclipse.apt" version '3.22.0'
+    id "com.diffplug.gradle.spotless" version "4.0.1"
+    id "org.springframework.boot" version "1.5.22.RELEASE"
+    id "org.seasar.doma.compile" version "1.0.0"
+}
+
+version = "2.36.0-beta-1"
+def dependentVersion = version
+def domaSpringBootVersion = "1.4.0"
+
+spotless {
+    java {
+        googleJavaFormat('1.7')
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-
-version = '2.17.0-SNAPSHOT'
-ext {
-    dependentVersion = '2.16.1'
-    domaSpringBootVersion = '1.1.0'
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
-processResources.destinationDir = compileJava.destinationDir
-compileJava.dependsOn processResources
-
-jar {
-    baseName = 'spring-boot-example'
-    version =  version
+springBoot {
+    mainClass = "sample.Application"
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url "http://repo.spring.io/libs-snapshot" }
-    maven { url "http://repo.spring.io/milestone" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.seasar.doma:doma:${dependentVersion}")
-    compile("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
-    compile("com.h2database:h2")
-    compile("org.webjars:jquery:2.1.1")
-    runtime('org.springframework.boot:spring-boot-devtools')
-    testCompile("junit:junit")
+    annotationProcessor("org.seasar.doma:doma-processor:${dependentVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.seasar.doma:doma-core:${dependentVersion}")
+    implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
+    implementation("com.h2database:h2")
+    implementation("org.webjars:jquery:2.1.1")
+    compileOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("junit:junit")
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
+eclipse {
+    classpath {
+        file {
+            whenMerged { classpath ->
+                classpath.entries.removeAll { it.path == '.apt_generated' }
+            }
+            withXml { provider ->
+                def node = provider.asNode()
+                // specify output path for .apt_generated
+                node.appendNode( 'classpathentry', [ kind: 'src', output: 'bin/main', path: '.apt_generated'])
+            }
+        }
+    }
+    jdt {
+        javaRuntimeName = 'JavaSE-11'
+    }
 }
-
-apply from:'eclipse.gradle'
-
-idea.module.inheritOutputDirs = true

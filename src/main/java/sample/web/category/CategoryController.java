@@ -1,18 +1,3 @@
-/*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package sample.web.category;
 
 import org.springframework.stereotype.Controller;
@@ -29,22 +14,18 @@ import sample.service.ProductService;
 @Transactional
 public class CategoryController {
 
-    private final CategoryService categoryService;
+  private final CategoryService categoryService;
+  private final ProductService productService;
 
-    private final ProductService productService;
+  public CategoryController(CategoryService categoryService, ProductService productService) {
+    this.categoryService = categoryService;
+    this.productService = productService;
+  }
 
-    public CategoryController(CategoryService categoryService,
-            ProductService productService) {
-        this.categoryService = categoryService;
-        this.productService = productService;
-    }
-
-    @GetMapping("/{id}")
-    public String category(@PathVariable String id, Model model) {
-        model.addAttribute("category", categoryService.getCategory(id));
-        model.addAttribute("productList",
-                productService.getProductListByCategory(id));
-        return "category/list";
-    }
-
+  @GetMapping("/{id}")
+  public String category(@PathVariable String id, Model model) {
+    model.addAttribute("category", categoryService.getCategory(id));
+    model.addAttribute("productList", productService.getProductListByCategory(id));
+    return "category/list";
+  }
 }
