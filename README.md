@@ -43,7 +43,7 @@ Edit
 
 Import this sample as a Gradle project.
 
-### With Eclipse
+### Eclipse
 
 Generate all Eclipse files with Gradle.
 
