@@ -1,235 +1,216 @@
-/*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package sample.entity;
 
+import java.io.Serializable;
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
 import org.seasar.doma.Metamodel;
 import org.seasar.doma.Transient;
 
-import java.io.Serializable;
-
 @Entity(metamodel = @Metamodel)
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "USERID")
-    private String username;
+  @Id
+  @Column(name = "USERID")
+  private String username;
 
-    private String email;
+  private String email;
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
+  private String lastName;
 
-    private String status;
+  private String status;
 
-    @Column(name = "ADDR1")
-    private String address1;
+  @Column(name = "ADDR1")
+  private String address1;
 
-    @Column(name = "ADDR2")
-    private String address2;
+  @Column(name = "ADDR2")
+  private String address2;
 
-    private String city;
+  private String city;
 
-    private String state;
+  private String state;
 
-    private String zip;
+  private String zip;
 
-    private String country;
+  private String country;
 
-    private String phone;
+  private String phone;
 
-    @Transient
-    private Profile profile = new Profile();
-    @Transient
-    private Signon signon = new Signon();
-    @Transient
-    private BannerData bannerdata = new BannerData();
+  @Transient private Profile profile = new Profile();
+  @Transient private Signon signon = new Signon();
+  @Transient private BannerData bannerdata = new BannerData();
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-        profile.setUsername(username);
-        signon.setUsername(username);
-    }
+  public void setUsername(String username) {
+    this.username = username;
+    profile.setUsername(username);
+    signon.setUsername(username);
+  }
 
-    public String getPassword() {
-        return signon.getPassword();
-    }
+  public String getPassword() {
+    return signon.getPassword();
+  }
 
-    public void setPassword(String password) {
-        signon.setPassword(password);
-    }
+  public void setPassword(String password) {
+    signon.setPassword(password);
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public String getAddress1() {
-        return address1;
-    }
+  public String getAddress1() {
+    return address1;
+  }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
+  public void setAddress1(String address1) {
+    this.address1 = address1;
+  }
 
-    public String getAddress2() {
-        return address2;
-    }
+  public String getAddress2() {
+    return address2;
+  }
 
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
+  public void setAddress2(String address2) {
+    this.address2 = address2;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public String getState() {
-        return state;
-    }
+  public String getState() {
+    return state;
+  }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+  public void setState(String state) {
+    this.state = state;
+  }
 
-    public String getZip() {
-        return zip;
-    }
+  public String getZip() {
+    return zip;
+  }
 
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
+  public void setZip(String zip) {
+    this.zip = zip;
+  }
 
-    public String getCountry() {
-        return country;
-    }
+  public String getCountry() {
+    return country;
+  }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-    public String getPhone() {
-        return phone;
-    }
+  public String getPhone() {
+    return phone;
+  }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-    public String getFavouriteCategoryId() {
-        return profile.getFavouriteCategoryId();
-    }
+  public String getFavouriteCategoryId() {
+    return profile.getFavouriteCategoryId();
+  }
 
-    public void setFavouriteCategoryId(String favouriteCategoryId) {
-        profile.setFavouriteCategoryId(favouriteCategoryId);
-    }
+  public void setFavouriteCategoryId(String favouriteCategoryId) {
+    profile.setFavouriteCategoryId(favouriteCategoryId);
+  }
 
-    public String getLanguagePreference() {
-        return profile.getLanguagePreference();
-    }
+  public String getLanguagePreference() {
+    return profile.getLanguagePreference();
+  }
 
-    public void setLanguagePreference(String languagePreference) {
-        profile.setLanguagePreference(languagePreference);
-    }
+  public void setLanguagePreference(String languagePreference) {
+    profile.setLanguagePreference(languagePreference);
+  }
 
-    public boolean isListOption() {
-        return profile.isListOption();
-    }
+  public boolean isListOption() {
+    return profile.isListOption();
+  }
 
-    public void setListOption(boolean listOption) {
-        profile.setListOption(listOption);
-    }
+  public void setListOption(boolean listOption) {
+    profile.setListOption(listOption);
+  }
 
-    public boolean isBannerOption() {
-        return profile.isBannerOption();
-    }
+  public boolean isBannerOption() {
+    return profile.isBannerOption();
+  }
 
-    public void setBannerOption(boolean bannerOption) {
-        profile.setBannerOption(bannerOption);
-    }
+  public void setBannerOption(boolean bannerOption) {
+    profile.setBannerOption(bannerOption);
+  }
 
-    public String getBannerName() {
-        return bannerdata.getBannerName();
-    }
+  public String getBannerName() {
+    return bannerdata.getBannerName();
+  }
 
-    public void setBannerName(String bannerName) {
-        bannerdata.setBannerName(bannerName);
-    }
+  public void setBannerName(String bannerName) {
+    bannerdata.setBannerName(bannerName);
+  }
 
-    public Profile getProfile() {
-        return profile;
-    }
+  public Profile getProfile() {
+    return profile;
+  }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
+  public void setProfile(Profile profile) {
+    this.profile = profile;
+  }
 
-    public Signon getSignon() {
-        return signon;
-    }
+  public Signon getSignon() {
+    return signon;
+  }
 
-    public void setSignon(Signon signon) {
-        this.signon = signon;
-    }
+  public void setSignon(Signon signon) {
+    this.signon = signon;
+  }
 
-    public BannerData getBannerData() {
-        return bannerdata;
-    }
+  public BannerData getBannerData() {
+    return bannerdata;
+  }
 
-    public void setBannerData(BannerData bannerdata) {
-        this.bannerdata = bannerdata;
-    }
+  public void setBannerData(BannerData bannerdata) {
+    this.bannerdata = bannerdata;
+  }
 }

@@ -10,26 +10,26 @@ import org.seasar.doma.Table;
 @Table(name = "INVENTORY")
 public class Inventory {
 
-    @Id
-    @Column(name = "ITEMID")
-    private String itemId;
+  @Id
+  @Column(name = "ITEMID")
+  private String itemId;
 
-    @Column(name = "QTY")
-    private Integer quantity;
+  @Column(name = "QTY")
+  private Integer quantity;
 
-    public String getItemId() {
-        return itemId;
-    }
+  public String getItemId() {
+    return itemId;
+  }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
+  public void setItemId(String itemId) {
+    this.itemId = itemId;
+  }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
+  public Integer getQuantity() {
+    return quantity;
+  }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+  public void setQuantity(Integer quantity) {
+    this.quantity = quantity;
+  }
 }

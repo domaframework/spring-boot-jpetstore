@@ -1,5 +1,7 @@
 plugins {
     id "java"
+    id "com.diffplug.eclipse.apt" version '3.22.0'
+    id "com.diffplug.gradle.spotless" version "4.0.1"
     id "org.springframework.boot" version "1.5.22.RELEASE"
     id "org.seasar.doma.compile" version "1.0.0"
 }
@@ -7,6 +9,17 @@ plugins {
 version = "2.36.0-beta-1"
 def dependentVersion = version
 def domaSpringBootVersion = "1.4.0"
+
+spotless {
+    java {
+        googleJavaFormat('1.7')
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
 springBoot {
     mainClass = "sample.Application"
@@ -30,4 +43,22 @@ dependencies {
     implementation("org.webjars:jquery:2.1.1")
     compileOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("junit:junit")
+}
+
+eclipse {
+    classpath {
+        file {
+            whenMerged { classpath ->
+                classpath.entries.removeAll { it.path == '.apt_generated' }
+            }
+            withXml { provider ->
+                def node = provider.asNode()
+                // specify output path for .apt_generated
+                node.appendNode( 'classpathentry', [ kind: 'src', output: 'bin/main', path: '.apt_generated'])
+            }
+        }
+    }
+    jdt {
+        javaRuntimeName = 'JavaSE-11'
+    }
 }

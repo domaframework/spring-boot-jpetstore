@@ -10,26 +10,26 @@ import org.seasar.doma.Table;
 @Table(name = "BANNERDATA")
 public class BannerData {
 
-    @Id
-    @Column(name = "FAVCATEGORY")
-    private String favouriteCategoryId;
+  @Id
+  @Column(name = "FAVCATEGORY")
+  private String favouriteCategoryId;
 
-    @Column(name = "BANNERNAME")
-    private String bannerName;
+  @Column(name = "BANNERNAME")
+  private String bannerName;
 
-    public String getFavouriteCategoryId() {
-        return favouriteCategoryId;
-    }
+  public String getFavouriteCategoryId() {
+    return favouriteCategoryId;
+  }
 
-    public void setFavouriteCategoryId(String favouriteCategoryId) {
-        this.favouriteCategoryId = favouriteCategoryId;
-    }
+  public void setFavouriteCategoryId(String favouriteCategoryId) {
+    this.favouriteCategoryId = favouriteCategoryId;
+  }
 
-    public String getBannerName() {
-        return bannerName;
-    }
+  public String getBannerName() {
+    return bannerName;
+  }
 
-    public void setBannerName(String bannerName) {
-        this.bannerName = bannerName;
-    }
+  public void setBannerName(String bannerName) {
+    this.bannerName = bannerName;
+  }
 }
