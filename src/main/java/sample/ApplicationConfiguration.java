@@ -30,16 +30,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 public class ApplicationConfiguration {
 
     @Bean
-    public Entityql entityql(Config config) {
-        return new Entityql(config);
-    }
-
-    @Bean
-    public NativeSql nativeSql(Config config) {
-        return new NativeSql(config);
-    }
-
-    @Bean
     public SqlFileRepository sqlFileRepository() {
         return new NoCacheSqlFileRepository();
     }
