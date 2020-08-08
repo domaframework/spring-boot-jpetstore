@@ -6,7 +6,7 @@ plugins {
     id "org.seasar.doma.compile" version "1.1.0"
 }
 
-version = "2.38.0"
+version = "2.40.0"
 def dependentVersion = version
 def domaSpringBootVersion = "1.4.0"
 
