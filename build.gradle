@@ -7,9 +7,6 @@ plugins {
     id "org.seasar.doma.compile" version "1.1.0"
 }
 
-def domaVersion = project.property('release.releaseVersion')
-def domaSpringBootVersion = "1.4.0"
-
 spotless {
     java {
         googleJavaFormat('1.7')
@@ -43,10 +40,6 @@ dependencies {
     implementation("org.webjars:jquery:2.2.4")
     compileOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("junit:junit")
-}
-
-release {
-    newVersionCommitMessage = '[Gradle Release Plugin] - [skip ci] new version commit: '
 }
 
 eclipse {
