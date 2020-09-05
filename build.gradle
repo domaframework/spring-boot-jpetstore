@@ -36,7 +36,7 @@ dependencies {
     implementation("org.seasar.doma:doma-core:${domaVersion}")
     implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
     implementation("com.h2database:h2")
-    implementation("org.webjars:jquery:2.2.4")
+    implementation("org.webjars:jquery:3.5.1")
     compileOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("junit:junit")
 }
