@@ -1,4 +1,4 @@
-JPet Store Sample ![Java CI with Gradle](https://github.com/domaframework/spring-boot-jpetstore/workflows/Java%20CI%20with%20Gradle/badge.svg)
+JPet Store Sample [![Java CI with Gradle](https://github.com/domaframework/spring-boot-jpetstore/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/domaframework/spring-boot-jpetstore/actions?query=workflow%3A%22Java+CI+with+Gradle%22)
 ========================================
 
 This sample shows how easy to integrate [Doma][doma] with  [Spring Boot][spring-boot] .
