@@ -51,11 +51,6 @@ Generate all Eclipse files with Gradle.
 ./gradlew eclipse
 ```
 
-License
--------
-
-Apache License, Version 2.0
-
 [doma]: https://github.com/domaframework/doma
 [spring-boot]: https://github.com/spring-projects/spring-boot
 
