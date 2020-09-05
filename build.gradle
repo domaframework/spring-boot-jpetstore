@@ -2,9 +2,11 @@ plugins {
     id "java"
     id "com.diffplug.eclipse.apt" version '3.24.0'
     id "com.diffplug.spotless" version "5.3.0"
-    id "org.springframework.boot" version "1.5.22.RELEASE"
+    id "org.springframework.boot" version "2.3.3.RELEASE"
     id "org.seasar.doma.compile" version "1.1.0"
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 spotless {
     java {
@@ -18,7 +20,7 @@ java {
 }
 
 springBoot {
-    mainClass = "sample.Application"
+    mainClassName = "sample.Application"
 }
 
 repositories {
@@ -33,11 +35,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.seasar.doma:doma-core:${domaVersion}")
     implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
-    implementation("com.h2database:h2")
+    implementation("com.h2database:h2:1.4.200")
     implementation("org.webjars:jquery:3.5.1")
-    compileOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("junit:junit")
 }
 
