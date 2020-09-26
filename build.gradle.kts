@@ -1,16 +1,16 @@
 plugins {
-    id "java"
-    id "com.diffplug.eclipse.apt" version '3.25.0'
-    id "com.diffplug.spotless" version "5.6.1"
-    id "org.springframework.boot" version "2.3.4.RELEASE"
-    id "org.seasar.doma.compile" version "1.1.0"
+    id("java")
+    id("com.diffplug.eclipse.apt") version "3.25.0"
+    id("com.diffplug.spotless") version "5.6.1"
+    id("org.springframework.boot") version "2.3.4.RELEASE"
+    id("org.seasar.doma.compile") version "1.1.0"
 }
 
-apply plugin: 'io.spring.dependency-management'
+apply(plugin = "io.spring.dependency-management")
 
 spotless {
     java {
-        googleJavaFormat('1.7')
+        googleJavaFormat("1.7")
     }
 }
 
@@ -26,10 +26,12 @@ springBoot {
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url "https://repo.spring.io/milestone" }
+    maven(url = "https://repo.spring.io/milestone")
 }
 
 dependencies {
+    val domaVersion: String by project
+    val domaSpringBootVersion: String by project
     annotationProcessor("org.seasar.doma:doma-processor:${domaVersion}")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -48,17 +50,22 @@ dependencies {
 eclipse {
     classpath {
         file {
-            whenMerged { classpath ->
-                classpath.entries.removeAll { it.path == '.apt_generated' }
+            whenMerged {
+                val classpath = this as org.gradle.plugins.ide.eclipse.model.Classpath
+                classpath.entries.removeAll {
+                    when (it) {
+                        is org.gradle.plugins.ide.eclipse.model.Output -> it.path == ".apt_generated"
+                        else -> false
+                    }
+                }
             }
-            withXml { provider ->
-                def node = provider.asNode()
-                // specify output path for .apt_generated
-                node.appendNode( 'classpathentry', [ kind: 'src', output: 'bin/main', path: '.apt_generated'])
+            withXml {
+                val node = asNode()
+                node.appendNode("classpathentry", mapOf("kind" to "src", "output" to "bin/main", "path" to ".apt_generated"))
             }
         }
     }
     jdt {
-        javaRuntimeName = 'JavaSE-11'
+        javaRuntimeName = "JavaSE-11"
     }
 }
