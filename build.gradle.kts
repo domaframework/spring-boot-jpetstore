@@ -20,7 +20,7 @@ java {
 }
 
 springBoot {
-    mainClassName = "sample.Application"
+    mainClass.set("sample.Application")
 }
 
 repositories {
