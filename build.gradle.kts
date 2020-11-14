@@ -44,7 +44,7 @@ dependencies {
     implementation("org.webjars:jquery:3.5.1")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-starter-test") {
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
 }
