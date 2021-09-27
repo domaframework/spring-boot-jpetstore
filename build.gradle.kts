@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("com.diffplug.eclipse.apt") version "3.33.0"
-    id("com.diffplug.spotless") version "5.15.1"
+    id("com.diffplug.spotless") version "5.15.2"
     id("org.springframework.boot") version "2.5.5"
     id("org.seasar.doma.compile") version "1.1.0"
 }
