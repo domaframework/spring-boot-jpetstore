@@ -39,6 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.seasar.doma:doma-core:${domaVersion}")
+    implementation("org.seasar.doma:doma-slf4j:${domaVersion}")
     implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
     implementation("com.h2database:h2:1.4.200")
     implementation("org.webjars:jquery:3.6.0")
