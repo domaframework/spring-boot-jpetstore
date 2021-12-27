@@ -43,7 +43,7 @@ dependencies {
     implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
     implementation("com.h2database:h2:1.4.200")
     implementation("org.webjars:jquery:3.6.0")
-    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.3")
+    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.0.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
