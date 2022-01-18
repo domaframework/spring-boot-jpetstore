@@ -41,7 +41,7 @@ dependencies {
     implementation("org.seasar.doma:doma-core:${domaVersion}")
     implementation("org.seasar.doma:doma-slf4j:${domaVersion}")
     implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
-    implementation("com.h2database:h2:2.0.206")
+    implementation("com.h2database:h2:2.1.210")
     implementation("org.webjars:jquery:3.6.0")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.0.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
