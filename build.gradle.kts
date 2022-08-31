@@ -42,7 +42,7 @@ dependencies {
     implementation("org.seasar.doma:doma-slf4j:${domaVersion}")
     implementation("org.seasar.doma.boot:doma-spring-boot-starter:${domaSpringBootVersion}")
     implementation("com.h2database:h2:2.1.214")
-    implementation("org.webjars:jquery:3.6.0")
+    implementation("org.webjars:jquery:3.6.1")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
