@@ -2,7 +2,7 @@ plugins {
     id("java")
     id("com.diffplug.eclipse.apt") version "3.39.0"
     id("com.diffplug.spotless") version "6.11.0"
-    id("org.springframework.boot") version "2.7.4"
+    id("org.springframework.boot") version "2.7.5"
     id("org.domaframework.doma.compile") version "2.0.0"
 }
 
